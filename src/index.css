@@ -1,13 +1,272 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Raleway", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  z-index: 1;
+}
+
+.category {
+  display: flex;
+  justify-content: space-between;
+  width: 15%;
+}
+
+.cart-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 5%;
+}
+
+.currency {
+  border: none;
+}
+
+.bag-img {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+.bags {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.bag {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.arror-bag {
+  position: absolute;
+  top: 40%;
+  left: 27%;
+}
+
+.arrow {
+  position: absolute;
+  top: 30%;
+  right: 19%;
+}
+
+.active {
+  color: #5ece7b;
+  border-bottom: 3px solid #5ece7b;
+}
+
+.dropdown-container {
+  position: relative;
+}
+.selected {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.icons {
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+}
+
+.list {
+  position: absolute;
+  width: 114px;
+  height: 160px;
+  left: -33px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  background: whitesmoke;
+  text-align: center;
+}
+
+.dropdown-menu {
+  padding: 15px 0;
+  cursor: pointer;
+}
+
+.item {
+  padding: 15px 10px;
+}
+
+.product-card {
+  width: 386px;
+  height: 444px;
+}
+
+.product-card:hover {
+  box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
+  display: block;
+}
+
+.image {
+  width: 356px;
+  height: 338px;
+  padding: 16px 16px 0 16px;
+  position: relative;
+}
+
+.name,
+.price {
+  padding: 0 16px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 400px 400px 400px;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+}
+
+.category-container {
+  padding: 0 90px;
+  position: absolute;
+  top: 10%
+}
+
+.category-container > h1 {
+  padding: 30px 0;
+}
+
+.cart-hover {
+  position: absolute;
+  bottom: 0;
+  right: 12%;
+  background: #5ece7b;
+  padding: 12px;
+  border-radius: 43%;
+  color: #fff;
+  display: none;
+}
+
+.product-card:hover .cart-hover {
+  display: block;
+}
+
+.modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 80px;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  width: 325px;
+  height: 540px;
+  background: #fff;
+  float: right;
+  margin-right: 100px;
+}
+
+.modal-content {
+  display: flex;
+  margin-bottom: 15px;
+  height: 34%;
+}
+
+.product-details {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.rate {
+  width: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 7px;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.mini-image {
+  width: 50%;
+  height: 100%;
+}
+
+.mini-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.size {
+  padding: 4px 8px;
+  margin-right: 5px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Source Sans Pro";
+}
+.gauge {
+  padding: 3px 7px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Source Sans Pro";
+}
+
+.view-checkout {
+  display: flex;
+  justify-content: space-between;
+}
+
+.view,
+.checkout {
+  padding: 10px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Raleway", sans-serif;
+  width: 48%;
+  font-weight: bold;
+}
+
+.checkout {
+  background: #5ece7b;
+  color: white;
+  font-weight: bold;
+  border: none;
 }
