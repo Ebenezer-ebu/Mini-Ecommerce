@@ -1,54 +1,62 @@
-import React, { Component, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useQuery } from "@apollo/client";
+import { GET_CURRENCIES } from "../utils/graphqlApi";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+import { setCurrency, selectedCurrency } from "../actions/currency";
 
-const currency = ["$ USD", "€ EUR", "￥ JPY"];
-
-class DropDown extends Component {
-  state = {
+const DropDown = (props) => {
+  const { dispatch, state } = props;
+  const { currency } = state;
+  const [stated, setState] = useState({
     active: false,
-    selected: currency[0],
-    currency: currency,
+  });
+
+  const { loading, error, data } = useQuery(GET_CURRENCIES);
+
+  const handleSelected = (currency) => {
+    dispatch(selectedCurrency(currency));
+  };
+  const setActive = () => {
+    setState((prev) => ({ ...prev, active: !stated.active }));
   };
 
-  handleSelected = (currency) => {
-    this.setState((prev) => ({
-      ...prev,
-      currency: currency,
-    }));
-  };
-  setActive = () => {
-    this.setState((prev) => ({ ...prev, active: !this.state.active }));
-  };
-  render() {
-    const { active, selected, currency } = this.state;
-    return (
-      <div className="dropdown-container">
-        <div className="selected">
-          {selected.split(" ")[0]}
-          <div className="icons" onClick={this.setActive}>
-            {active ? (
-              <RiArrowDropUpLine size={20} />
-            ) : (
-              <RiArrowDropDownLine size={20} />
-            )}
-          </div>
+  useEffect(() => {
+    if (data) dispatch(setCurrency(data));
+  }, [data]);
+
+  const { active } = stated;
+  return (
+    <div className="dropdown-container">
+      <div className="selected">
+        {currency.defaultCurrency?.symbol}
+        <div className="icons" onClick={setActive}>
+          {active ? (
+            <RiArrowDropUpLine size={20} />
+          ) : (
+            <RiArrowDropDownLine size={20} />
+          )}
         </div>
-        {active ? (
-          <div className="list">
-            {currency.map((curr, idx) => (
-              <div
-                key={idx}
-                className="dropdown-menu"
-                onClick={() => this.handleSelected(curr)}
-              >
-                {curr}
-              </div>
-            ))}
-          </div>
-        ) : null}
       </div>
-    );
-  }
+      {active ? (
+        <div className="list">
+          {currency?.currency.map((curr, idx) => (
+            <div
+              key={idx}
+              className="dropdown-menu"
+              onClick={() => handleSelected(curr)}
+            >
+              {`${curr.symbol} ${curr.label}`}
+            </div>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+function mapStateToProps(state) {
+  return { state };
 }
 
-export default DropDown;
+export default connect(mapStateToProps)(DropDown);
