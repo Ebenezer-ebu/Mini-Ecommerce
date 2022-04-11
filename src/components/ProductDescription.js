@@ -38,10 +38,6 @@ const ProductDescription = (props) => {
       if (stillPro) {
         setSelectedAttr((prev) => ({ ...prev, [head]: { ...rest } }));
       }
-      // if (Object.keys(selectedAttr[head]).length === 0) {
-      //   const { [head]: value, ...rest } = selectedAttr;
-      //   setSelectedAttr((prev) => ({ ...prev, ...rest }));
-      // }
     } else if (selectedAttr[head]) {
       setSelectedAttr((prev) => ({
         ...prev,
@@ -58,9 +54,10 @@ const ProductDescription = (props) => {
       name: product.name,
       brand: product.brand,
       id: params.id,
-      price,
+      price: product.prices,
       attributes: selectedAttr,
       image: images[images.length - 1],
+      no_of_items: 1,
     };
     let attrLen = [];
     const keys = Object.keys(selectedAttr);

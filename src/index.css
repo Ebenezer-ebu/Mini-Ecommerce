@@ -225,7 +225,6 @@ code {
 
 .modal-content {
   display: flex;
-  margin-bottom: 15px;
   height: 40%;
 }
 
@@ -301,6 +300,7 @@ code {
 .view-checkout {
   display: flex;
   justify-content: space-between;
+  height: 43px;
 }
 
 .view,
@@ -312,8 +312,22 @@ code {
   font-family: "Raleway", sans-serif;
   width: 48%;
   font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
 }
 
+.view > button {
+  padding: 10px;
+  background: #fff;
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+  border: none;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .checkout {
   background: #5ece7b;
   color: white;
@@ -476,4 +490,25 @@ code {
   letter-spacing: 0.05em;
   color: #a6a6a6;
   margin-right: 15px;
+}
+
+.check-size {
+  display: flex;
+  flex-direction: row;
+}
+
+.my-bag {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.attr {
+  display: flex;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 70%;
 }

@@ -1,56 +1,121 @@
 import { Component } from "react";
-import sweater from "../assets/Product-D_(1).png";
-import glasses from "../assets/Product-D.png";
+import { connect } from "react-redux";
+import { decrementItems, incrementItems } from "../actions/cart";
 
 class CartPage extends Component {
+  incrementNum = (id) => {
+    const { dispatch } = this.props;
+    dispatch(incrementItems(id));
+  };
+
+  decrementNum = (id) => {
+    const { dispatch } = this.props;
+    dispatch(decrementItems(id));
+  };
   render() {
+    const { state } = this.props;
+    const { addCart } = state;
+    const total = addCart.cart
+      ? addCart.cart.reduce((accum, cart) => {
+          let cost = cart.price.find(
+            (price) =>
+              price.currency.symbol === state.currency.defaultCurrency?.symbol
+          );
+
+          return accum + cost.amount * cart.no_of_items;
+        }, 0)
+      : 0;
     return (
       <div className="container">
         <div className="cart-head">
-          <h1>CART</h1>
-        </div>
-        <div className="stock-content">
+          <div className="top">
+            <h1>CART</h1>
+            <h3>
+              {state.currency.defaultCurrency?.symbol}
+              {total}
+            </h3>
+          </div>
+
           <div>
-            <h2>
-              Apollo
-              <br />
-              Running Short
-            </h2>
-            <p>$50.00</p>
-            <button className="measure">S</button>
-            <button className="measure">M</button>
-          </div>
-          <div className="rate2">
-            <div className="rating">
-              <button className="gauge2">＋</button>
-              <p>1</p>
-              <button className="gauge2">－</button>
-            </div>
-            <div className="mini-image2">
-              <img src={sweater} alt="sweater" />
-            </div>
-          </div>
-        </div>
-        <div className="stock-content">
-          <div>
-            <h2>
-              Jupiter
-              <br />
-              Wayfarer
-            </h2>
-            <p>$75.00</p>
-            <button className="measure">S</button>
-            <button className="measure">M</button>
-          </div>
-          <div className="rate2">
-            <div className="rating">
-              <button className="gauge2">＋</button>
-              <p>2</p>
-              <button className="gauge2">－</button>
-            </div>
-            <div className="mini-image2">
-              <img src={glasses} alt="glasses" />
-            </div>
+            {addCart.cart && addCart.cart.length > 0 ? (
+              addCart.cart.map((cart) => (
+                <div className="stock-content">
+                  <div>
+                    <h2>
+                      {cart.name}
+                      <br />
+                      {cart.brand}
+                    </h2>
+                    <p>
+                      {
+                        cart.price.find(
+                          (price) =>
+                            price.currency.symbol ===
+                            state.currency.defaultCurrency?.symbol
+                        ).currency.symbol
+                      }
+                      {
+                        cart.price.find(
+                          (price) =>
+                            price.currency.symbol ===
+                            state.currency.defaultCurrency?.symbol
+                        ).amount
+                      }
+                    </p>
+                    <div className="attr">
+                      {Object.keys(cart.attributes).map((attr, i) => (
+                        <div key={i}>
+                          {Object.keys(cart.attributes[attr]).map(
+                            (key, ind) => (
+                              <button
+                                key={ind}
+                                className="measure"
+                                style={{
+                                  background:
+                                    cart.attributes[attr][key][1] === "swatch"
+                                      ? cart.attributes[attr][key][0]
+                                      : "",
+                                  border:
+                                    cart.attributes[attr][key][1] === "swatch"
+                                      ? "none"
+                                      : "",
+                                }}
+                              >
+                                {cart.attributes[attr][key][1] === "swatch"
+                                  ? key
+                                  : cart.attributes[attr][key][0]}
+                              </button>
+                            )
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="rate2">
+                    <div className="rating">
+                      <button
+                        className="gauge2"
+                        onClick={() => this.incrementNum(cart.id)}
+                      >
+                        ＋
+                      </button>
+                      <p>{cart.no_of_items}</p>
+                      <button
+                        className="gauge2"
+                        onClick={() => this.decrementNum(cart.id)}
+                      >
+                        －
+                      </button>
+                    </div>
+                    <div className="mini-image2">
+                      <img src={cart.image} alt={cart.image} />
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div>No Items In Cart</div>
+            )}
           </div>
         </div>
       </div>
@@ -58,4 +123,8 @@ class CartPage extends Component {
   }
 }
 
-export default CartPage;
+function mapStateToProps(state) {
+  return { state };
+}
+
+export default connect(mapStateToProps)(CartPage);

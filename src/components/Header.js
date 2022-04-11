@@ -60,7 +60,7 @@ const Header = (props) => {
         <DropDown />
         <BsCart2 size={20} onClick={handleCartModal} />
         <div className="num-of-items">
-          {addCart.cart ? addCart.cart.length : null}
+          {addCart.cart && addCart.cart.length !== 0 ? addCart.cart.length : null}
         </div>
       </div>
       {modal && <CartModal outerRef={outerRef} />}
