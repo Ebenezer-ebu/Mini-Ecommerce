@@ -39,7 +39,7 @@ class CartPage extends Component {
           <div>
             {addCart.cart && addCart.cart.length > 0 ? (
               addCart.cart.map((cart) => (
-                <div className="stock-content">
+                <div className="stock-content" key={cart.id}>
                   <div>
                     <h2>
                       {cart.name}

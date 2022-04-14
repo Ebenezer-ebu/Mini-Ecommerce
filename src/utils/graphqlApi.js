@@ -76,6 +76,38 @@ export const GET_PRODUCT_BY_ID = gql`
   }
 `;
 
+export const getProductById = (id) => {
+  return gql`
+    query product($id: String!) {
+      product(id: $id) {
+        id
+        name
+        inStock
+        gallery
+        description
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
+        brand
+      }
+    }
+  `;
+};
+
 export const GET_CURRENCIES = gql`
   query {
     currencies {

@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import reducer from "./reducers";
 import middleware from "./middleware";
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   uri: "http://localhost:4000",
   cache: new InMemoryCache(),
 });
@@ -21,10 +21,10 @@ const root = ReactDOM.createRoot(container);
 
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
-      <ApolloProvider client={client}>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
         <App />
-      </ApolloProvider>
-    </Provider>
+      </Provider>
+    </ApolloProvider>
   </BrowserRouter>
 );
