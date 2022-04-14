@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { client } from "../index";
 import { GET_PRODUCTS } from "../utils/graphqlApi";
 import { loadingData, getProducts, errorData } from "../actions/index";
@@ -17,10 +18,10 @@ class Header extends Component {
   };
   handleSelectedCategory = (category) => {
     this.props.dispatch(setCategory(category));
+    this.props.navigate("/");
   };
 
   handleCartModal = () => {
-    console.log("clicked")
     this.setState((prev) => ({ ...prev, modal: !this.state.modal }));
   };
 
@@ -56,15 +57,21 @@ class Header extends Component {
           ))}
         </div>
         <div className="bag-img">
-          <div className="bags">
-            <img src={bag} alt="bag" className="bag" />
-            <img src={curve} alt="arror-bag" className="arror-bag" />
-            <img src={arrow} alt="arrow" className="arrow" />
-          </div>
+          <Link to="/view-bag">
+            <div className="bags">
+              <img src={bag} alt="bag" className="bag" />
+              <img src={curve} alt="arror-bag" className="arror-bag" />
+              <img src={arrow} alt="arrow" className="arrow" />
+            </div>
+          </Link>
         </div>
         <div className="cart-section">
           <DropDown handleCartModal={this.handleCartModal} modal={modal} />
-          <BsCart2 size={20} onClick={this.handleCartModal} />
+          <BsCart2
+            size={20}
+            onClick={this.handleCartModal}
+            style={{ cursor: "pointer" }}
+          />
           <div className="num-of-items">
             {addCart.cart && addCart.cart.length !== 0
               ? addCart.cart.length
@@ -83,4 +90,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Header);
+function withRouter(Component) {
+  return (props) => <Component {...props} navigate={useNavigate()} />;
+}
+
+export default connect(mapStateToProps)(withRouter(Header));

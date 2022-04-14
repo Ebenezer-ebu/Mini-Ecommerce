@@ -63,6 +63,7 @@ code {
   width: 40%;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .bags {
@@ -521,4 +522,5 @@ code {
   padding: 5px;
   background: #fff;
   border-radius: 50%;
+  cursor: pointer;
 }

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { BsCart2 } from "react-icons/bs";
 
 class ProductCard extends Component {
-
   handleSingleProduct = (id) => {
     this.props.navigate(`/product/${id}`);
   };
