@@ -220,7 +220,7 @@ code {
   /* height: 100%; */
   background: #fff;
   float: right;
-  margin-right: 100px;
+  margin-right: 80px;
 }
 
 .modal-content {
@@ -511,4 +511,14 @@ code {
   justify-content: space-between;
   align-items: flex-end;
   width: 70%;
+}
+
+.close-modal {
+  color: #fff;
+  font-size: 19px;
+  float: right;
+  margin-right: 25px;
+  padding: 5px;
+  background: #fff;
+  border-radius: 50%;
 }

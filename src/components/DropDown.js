@@ -28,6 +28,20 @@ class DropDown extends Component {
         }
       });
   }
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    if (prevProps.active !== this.state.active) {
+      console.log(this.props.modal, "########");
+      if (this.props.modal && this.state.active) {
+        this.props.handleCartModal();
+      }
+    }
+    if (prevProps.modal !== this.props.modal) {
+      if (this.props.modal && this.state.active) {
+        this.setActive();
+      }
+    }
+  }
   render() {
     const { state } = this.props;
     const { currency } = state;

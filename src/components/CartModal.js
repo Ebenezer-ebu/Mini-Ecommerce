@@ -1,6 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
 import { decrementItems, incrementItems } from "../actions/cart";
 
 class CartModal extends Component {
@@ -13,7 +14,7 @@ class CartModal extends Component {
     dispatch(decrementItems(id));
   };
   render() {
-    const { state } = this.props;
+    const { state, handleCartModal } = this.props;
     const { addCart } = state;
     const total = addCart.cart
       ? addCart.cart.reduce((accum, cart) => {
@@ -27,6 +28,7 @@ class CartModal extends Component {
       : 0;
     return (
       <div className="modal">
+        <GrClose className="close-modal" onClick={handleCartModal} />
         <div className="modal-container">
           <div>
             <span className="my-bag">My Bag</span>

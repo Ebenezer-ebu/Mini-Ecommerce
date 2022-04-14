@@ -20,6 +20,7 @@ class Header extends Component {
   };
 
   handleCartModal = () => {
+    console.log("clicked")
     this.setState((prev) => ({ ...prev, modal: !this.state.modal }));
   };
 
@@ -62,7 +63,7 @@ class Header extends Component {
           </div>
         </div>
         <div className="cart-section">
-          <DropDown />
+          <DropDown handleCartModal={this.handleCartModal} modal={modal} />
           <BsCart2 size={20} onClick={this.handleCartModal} />
           <div className="num-of-items">
             {addCart.cart && addCart.cart.length !== 0
@@ -70,7 +71,7 @@ class Header extends Component {
               : null}
           </div>
         </div>
-        {modal && <CartModal />}
+        {modal && <CartModal handleCartModal={this.handleCartModal} />}
       </nav>
     );
   }
