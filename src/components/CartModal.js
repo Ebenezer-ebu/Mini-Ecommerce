@@ -124,10 +124,16 @@ class CartModal extends Component {
                 </p>
               </div>
               <div className="view-checkout">
-                <Link to="/view-bag" className="view">
+                <Link to="/view-bag" className="view" onClick={handleCartModal}>
                   <button>VIEW BAG</button>
                 </Link>
-                <button className="checkout">CHECKOUT</button>
+                <Link
+                  to="/checkout"
+                  onClick={handleCartModal}
+                  className="checkout"
+                >
+                  <button>CHECKOUT</button>
+                </Link>
               </div>
             </>
           ) : (
