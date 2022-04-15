@@ -40,8 +40,8 @@ class CartModal extends Component {
           </div>
           {addCart.cart ? (
             <>
-              {addCart.cart.map((cart) => (
-                <div className="modal-content" key={cart.id}>
+              {addCart.cart.map((cart, i) => (
+                <div className="modal-content" key={i}>
                   <div className="product-details">
                     <div className="sub-details">
                       <p className="">{cart.name}</p>

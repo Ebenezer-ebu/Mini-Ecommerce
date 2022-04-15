@@ -4,13 +4,15 @@ export function addCart(state = {}, action) {
   switch (action.type) {
     case ADD_TO_CART:
       if (!state.cart) {
-        console.log("Added1");
         return { ...state, cart: [action.cart] };
       }
-      let indx = state.cart.findIndex((cart) => cart.id === action.cart.id);
-      console.log(indx, "index");
+      let indx = state.cart.findIndex(
+        (cart) =>
+          cart.id === action.cart.id &&
+          JSON.stringify(cart.attributes) ===
+            JSON.stringify(action.cart.attributes)
+      );
       if (indx !== -1) {
-        console.log(indx, "inside");
         return {
           cart: state.cart.map((item, i) => {
             if (indx === i) {
@@ -20,7 +22,6 @@ export function addCart(state = {}, action) {
           }),
         };
       }
-      console.log("Added");
       return { ...state, cart: [...state.cart, action.cart] };
     case INCREMENT:
       return {
