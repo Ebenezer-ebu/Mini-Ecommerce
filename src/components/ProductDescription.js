@@ -96,6 +96,7 @@ class ProductDescription extends Component {
     const price = product?.prices.find(
       (cost) => cost.currency.symbol === state.currency.defaultCurrency?.symbol
     );
+    const html = { __html: product?.description };
     return (
       <div className="container">
         <div className="description-content">
@@ -105,7 +106,10 @@ class ProductDescription extends Component {
             ))}
           </div>
           <div className="main-img">
-            <img src={images && images[images.length - 1]} alt={product?.brand} />
+            <img
+              src={images && images[images.length - 1]}
+              alt={product?.brand}
+            />
           </div>
           <div className="description">
             <h1 className="head">{product?.name}</h1>
@@ -129,9 +133,7 @@ class ProductDescription extends Component {
             <button className="add-to-cart" onClick={this.handleAddToCart}>
               ADD TO CART
             </button>
-            <p className="details">
-              {product?.description.replace(/<\/?[^>]+(>|$)/g, "")}
-            </p>
+            <p className="details" dangerouslySetInnerHTML={html} />
           </div>
         </div>
       </div>
