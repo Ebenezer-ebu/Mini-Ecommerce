@@ -26,6 +26,7 @@ class CartModal extends Component {
           return accum + cost.amount * cart.no_of_items;
         }, 0)
       : 0;
+    console.log(addCart.cart);
     return (
       <div className="modal">
         <GrClose className="close-modal" onClick={handleCartModal} />
@@ -68,6 +69,7 @@ class CartModal extends Component {
                           {Object.keys(cart.attributes[attr]).map(
                             (key, ind) => (
                               <div key={ind}>
+                                <p style={{ margin: "3px 0", fontWeight: "bold"}}>{attr}</p>
                                 <button
                                   className="size"
                                   style={{
@@ -79,10 +81,18 @@ class CartModal extends Component {
                                       cart.attributes[attr][key][1] === "swatch"
                                         ? "none"
                                         : "",
+                                    width:
+                                      cart.attributes[attr][key][1] === "swatch"
+                                        ? "30px"
+                                        : "",
+                                    height:
+                                      cart.attributes[attr][key][1] === "swatch"
+                                        ? "30px"
+                                        : "",
                                   }}
                                 >
                                   {cart.attributes[attr][key][1] === "swatch"
-                                    ? key
+                                    ? ""
                                     : cart.attributes[attr][key][0]}
                                 </button>
                               </div>

@@ -517,7 +517,7 @@ code {
 
 .check-size {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .my-bag {
