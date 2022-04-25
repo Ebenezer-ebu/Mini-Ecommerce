@@ -15,13 +15,14 @@ class CartPage extends Component {
   render() {
     const { state } = this.props;
     const { addCart } = state;
+    let itemsInBag = 0;
     const total = addCart.cart
       ? addCart.cart.reduce((accum, cart) => {
           let cost = cart.price.find(
             (price) =>
               price.currency.symbol === state.currency.defaultCurrency?.symbol
           );
-
+          itemsInBag += cart.no_of_items;
           return accum + cost.amount * cart.no_of_items;
         }, 0)
       : 0;
@@ -131,9 +132,7 @@ class CartPage extends Component {
                     </p>
                     <p>
                       Qty:{" "}
-                      <span style={{ fontWeight: "bold" }}>
-                        {addCart.cart ? addCart.cart.length : 0}
-                      </span>
+                      <span style={{ fontWeight: "bold" }}>{itemsInBag}</span>
                     </p>
                   </div>
                   <p>

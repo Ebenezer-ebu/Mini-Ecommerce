@@ -16,16 +16,18 @@ class CartModal extends Component {
   render() {
     const { state, handleCartModal } = this.props;
     const { addCart } = state;
+    let itemsInBag = 0;
     const total = addCart.cart
       ? addCart.cart.reduce((accum, cart) => {
           let cost = cart.price.find(
             (price) =>
               price.currency.symbol === state.currency.defaultCurrency?.symbol
           );
-
+          itemsInBag += cart.no_of_items;
           return accum + cost.amount * cart.no_of_items;
         }, 0)
       : 0;
+    console.log(itemsInBag);
     return (
       <div className="modal">
         <GrClose className="close-modal" onClick={handleCartModal} />
@@ -33,8 +35,8 @@ class CartModal extends Component {
           <div>
             <span className="my-bag">My Bag</span>
             {addCart.cart ? (
-              <span>{` ,${addCart.cart.length} ${
-                addCart.cart.length > 1 ? "items" : "item"
+              <span>{` ,${itemsInBag} ${
+                itemsInBag > 1 ? "items" : "item"
               }`}</span>
             ) : null}
           </div>
@@ -68,7 +70,15 @@ class CartModal extends Component {
                           {Object.keys(cart.attributes[attr]).map(
                             (key, ind) => (
                               <div key={ind}>
-                                <p style={{ margin: "3px 0", fontWeight: "bold", fontSize: "14px"}}>{attr}</p>
+                                <p
+                                  style={{
+                                    margin: "3px 0",
+                                    fontWeight: "bold",
+                                    fontSize: "14px",
+                                  }}
+                                >
+                                  {attr}
+                                </p>
                                 <button
                                   className="size"
                                   style={{
