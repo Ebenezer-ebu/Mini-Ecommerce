@@ -26,7 +26,6 @@ class CartModal extends Component {
           return accum + cost.amount * cart.no_of_items;
         }, 0)
       : 0;
-    console.log(addCart.cart);
     return (
       <div className="modal">
         <GrClose className="close-modal" onClick={handleCartModal} />

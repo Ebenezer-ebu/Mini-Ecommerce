@@ -30,89 +30,123 @@ class CartPage extends Component {
         <div className="cart-head">
           <div className="top">
             <h1>CART</h1>
-            <h3>
-              {state.currency.defaultCurrency?.symbol}
-              {total}
-            </h3>
           </div>
-
           <div>
             {addCart.cart && addCart.cart.length > 0 ? (
-              addCart.cart.map((cart) => (
-                <div className="stock-content" key={cart.id}>
+              <>
+                {addCart.cart.map((cart) => (
+                  <div className="stock-content" key={cart.id}>
+                    <div>
+                      <h2 style={{ margin: 0 }}>{cart.name}</h2>
+                      <p style={{ fontSize: "22px", margin: 0 }}>
+                        {cart.brand}
+                      </p>
+                      <p style={{ fontWeight: "bold" }}>
+                        {
+                          cart.price.find(
+                            (price) =>
+                              price.currency.symbol ===
+                              state.currency.defaultCurrency?.symbol
+                          ).currency.symbol
+                        }
+                        {
+                          cart.price.find(
+                            (price) =>
+                              price.currency.symbol ===
+                              state.currency.defaultCurrency?.symbol
+                          ).amount
+                        }
+                      </p>
+                      <div className="attr">
+                        {Object.keys(cart.attributes).map((attr, i) => (
+                          <div key={i}>
+                            {Object.keys(cart.attributes[attr]).map(
+                              (key, ind) => (
+                                <div key={ind}>
+                                  <p
+                                    style={{
+                                      margin: "3px 0",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {attr.toUpperCase()}:
+                                  </p>
+
+                                  <button
+                                    key={ind}
+                                    className="measure"
+                                    style={{
+                                      background:
+                                        cart.attributes[attr][key][1] ===
+                                        "swatch"
+                                          ? cart.attributes[attr][key][0]
+                                          : "",
+                                      border:
+                                        cart.attributes[attr][key][1] ===
+                                        "swatch"
+                                          ? "none"
+                                          : "",
+                                    }}
+                                  >
+                                    {cart.attributes[attr][key][1] === "swatch"
+                                      ? key
+                                      : cart.attributes[attr][key][0]}
+                                  </button>
+                                </div>
+                              )
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rate2">
+                      <div className="rating">
+                        <button
+                          className="gauge2"
+                          onClick={() => this.incrementNum(cart.id)}
+                        >
+                          ＋
+                        </button>
+                        <p>{cart.no_of_items}</p>
+                        <button
+                          className="gauge2"
+                          onClick={() => this.decrementNum(cart.id)}
+                        >
+                          －
+                        </button>
+                      </div>
+                      <div className="mini-image2">
+                        <img src={cart.image} alt={cart.image} />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                <div className="order-item">
                   <div>
-                    <h2>
-                      {cart.name}
-                      <br />
-                      {cart.brand}
-                    </h2>
                     <p>
-                      {
-                        cart.price.find(
-                          (price) =>
-                            price.currency.symbol ===
-                            state.currency.defaultCurrency?.symbol
-                        ).currency.symbol
-                      }
-                      {
-                        cart.price.find(
-                          (price) =>
-                            price.currency.symbol ===
-                            state.currency.defaultCurrency?.symbol
-                        ).amount
-                      }
+                      Tax:{" "}
+                      <span style={{ fontWeight: "bold" }}>
+                        {state.currency.defaultCurrency?.symbol}15.00
+                      </span>
                     </p>
-                    <div className="attr">
-                      {Object.keys(cart.attributes).map((attr, i) => (
-                        <div key={i}>
-                          {Object.keys(cart.attributes[attr]).map(
-                            (key, ind) => (
-                              <button
-                                key={ind}
-                                className="measure"
-                                style={{
-                                  background:
-                                    cart.attributes[attr][key][1] === "swatch"
-                                      ? cart.attributes[attr][key][0]
-                                      : "",
-                                  border:
-                                    cart.attributes[attr][key][1] === "swatch"
-                                      ? "none"
-                                      : "",
-                                }}
-                              >
-                                {cart.attributes[attr][key][1] === "swatch"
-                                  ? key
-                                  : cart.attributes[attr][key][0]}
-                              </button>
-                            )
-                          )}
-                        </div>
-                      ))}
-                    </div>
+                    <p>
+                      Qty:{" "}
+                      <span style={{ fontWeight: "bold" }}>
+                        {addCart.cart ? addCart.cart.length : 0}
+                      </span>
+                    </p>
                   </div>
-                  <div className="rate2">
-                    <div className="rating">
-                      <button
-                        className="gauge2"
-                        onClick={() => this.incrementNum(cart.id)}
-                      >
-                        ＋
-                      </button>
-                      <p>{cart.no_of_items}</p>
-                      <button
-                        className="gauge2"
-                        onClick={() => this.decrementNum(cart.id)}
-                      >
-                        －
-                      </button>
-                    </div>
-                    <div className="mini-image2">
-                      <img src={cart.image} alt={cart.image} />
-                    </div>
-                  </div>
+                  <p>
+                    Total:{" "}
+                    <span style={{ fontWeight: "bold" }}>
+                      {" "}
+                      {state.currency.defaultCurrency?.symbol}
+                      {total}
+                    </span>
+                  </p>
+                  <button className="order">ORDER</button>
                 </div>
-              ))
+              </>
             ) : (
               <div>No Items In Cart</div>
             )}

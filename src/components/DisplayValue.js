@@ -24,14 +24,12 @@ class DisplayValue extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props.selectedAttr);
     if (prevProps.selectedAttr !== this.props.selectedAttr) {
       const { selectedAttr } = this.props;
       const keys = Object.keys(selectedAttr);
       if (keys.length > 0) {
         keys.forEach((key) => {
           let obj = selectedAttr[key];
-          console.log(obj, "Checking");
           if (Object.keys(obj).length > 0) {
             this.setState((prev) => ({
               ...prev,
@@ -39,7 +37,6 @@ class DisplayValue extends Component {
             }));
           } else {
             let { tick } = this.state;
-            console.log(tick);
             let { [key]: value, ...rest } = tick;
             this.setState((prev) => ({
               ...prev,

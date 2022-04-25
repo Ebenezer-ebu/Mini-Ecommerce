@@ -16,7 +16,6 @@ class ProductCard extends Component {
     const currencyInUse = data.prices.find(
       (price) => price.currency.symbol === defaultCurrency.symbol
     );
-    console.log(data);
 
     return (
       <div

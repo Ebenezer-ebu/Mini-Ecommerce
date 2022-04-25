@@ -51,6 +51,10 @@ class ProductDescription extends Component {
     const { data, selectedAttr } = this.state;
     const { dispatch } = this.props;
     const { product } = data;
+    if (!product.inStock) {
+      alert("This product is out of stock");
+      return;
+    }
     let images = data.product.gallery;
     if (images.length < 4) {
       images = Array(5).fill(images[0]);
@@ -104,6 +108,7 @@ class ProductDescription extends Component {
               src={images && images[images.length - 1]}
               alt={product?.brand}
             />
+            <h3>{product?.inStock ? "" : "OUT OF STOCK"}</h3>
           </div>
           <div className="description">
             <h1 className="head">{product?.name}</h1>
