@@ -225,15 +225,17 @@ code {
   flex-direction: column;
   padding: 16px;
   width: 325px;
-  /* height: 100%; */
+  max-height: 80%;
   background: #fff;
   float: right;
   margin-right: 80px;
+  overflow: scroll;
 }
 
 .modal-content {
   display: flex;
-  height: 40%;
+  height: 220px;
+  margin: 5px 0;
 }
 
 .product-details {
@@ -241,7 +243,6 @@ code {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .rate {

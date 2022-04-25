@@ -68,7 +68,7 @@ class CartModal extends Component {
                           {Object.keys(cart.attributes[attr]).map(
                             (key, ind) => (
                               <div key={ind}>
-                                <p style={{ margin: "3px 0", fontWeight: "bold"}}>{attr}</p>
+                                <p style={{ margin: "3px 0", fontWeight: "bold", fontSize: "14px"}}>{attr}</p>
                                 <button
                                   className="size"
                                   style={{

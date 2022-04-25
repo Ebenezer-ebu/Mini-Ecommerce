@@ -40,7 +40,10 @@ class Header extends Component {
     const { state } = this.props;
     const { category, addCart } = state;
     const { modal } = this.state;
-
+    const totalItems = addCart.cart
+      ? addCart.cart?.reduce((accum, item) => accum + item.no_of_items, 0)
+      : 0;
+    console.log(totalItems, addCart);
     return (
       <nav className="header">
         <div className="category">
@@ -73,9 +76,7 @@ class Header extends Component {
             style={{ cursor: "pointer" }}
           />
           <div className="num-of-items">
-            {addCart.cart && addCart.cart.length !== 0
-              ? addCart.cart.length
-              : null}
+            {totalItems > 0 ? totalItems : null}
           </div>
         </div>
         {modal && <CartModal handleCartModal={this.handleCartModal} />}
