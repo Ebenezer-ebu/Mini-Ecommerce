@@ -16,6 +16,7 @@ class ProductCard extends Component {
     const currencyInUse = data.prices.find(
       (price) => price.currency.symbol === defaultCurrency.symbol
     );
+    console.log(data);
 
     return (
       <div
@@ -24,6 +25,7 @@ class ProductCard extends Component {
       >
         <div className="image">
           <img src={data?.gallery[0]} alt={data?.name} className="product" />
+          <h3>{data?.inStock ? "" : "OUT OF STOCK"}</h3>
           <BsCart2 className="cart-hover" />
         </div>
         <p className="name">{data?.name}</p>

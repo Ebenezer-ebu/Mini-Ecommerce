@@ -9,6 +9,7 @@ class Category extends Component {
     const displayData = category.categories?.filter(
       (cate) => cate.name === category.defaultCategory
     );
+    console.log(displayData);
     return (
       <div className="container">
         <h1>Category name</h1>

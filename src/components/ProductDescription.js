@@ -33,23 +33,17 @@ class ProductDescription extends Component {
 
   handleSelectedAtt = (value, id, type, head) => {
     const { selectedAttr } = this.state;
-    if (selectedAttr[head] && selectedAttr[head][id]) {
-      const { [id]: value, ...rest } = selectedAttr[head];
-      const stillPro = Object.keys(selectedAttr[head]).length > 0;
-      if (stillPro) {
-        this.setState((prev) => ({
-          ...prev,
-          selectedAttr: { [head]: { ...rest } },
-        }));
-      }
-    } else if (selectedAttr[head]) {
+    if (selectedAttr[head]) {
       this.setState((prev) => ({
         ...prev,
-        selectedAttr: { [head]: { [id]: [value, type] } },
+        selectedAttr: { ...prev.selectedAttr, [head]: { [id]: [value, type] } },
       }));
     } else {
       let obj = { [head]: { [id]: [value, type] } };
-      this.setState((prev) => ({ ...prev, selectedAttr: { ...obj } }));
+      this.setState((prev) => ({
+        ...prev,
+        selectedAttr: { ...prev.selectedAttr, ...obj },
+      }));
     }
   };
 

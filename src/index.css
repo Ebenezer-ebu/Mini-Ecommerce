@@ -160,6 +160,13 @@ code {
   object-fit: contain;
 }
 
+.image h3 {
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  color: #8D8F9A;
+}
+
 .name,
 .price {
   padding: 0 16px;

@@ -24,21 +24,33 @@ class DisplayValue extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.props.selectedAttr);
     if (prevProps.selectedAttr !== this.props.selectedAttr) {
       const { selectedAttr } = this.props;
       const keys = Object.keys(selectedAttr);
       if (keys.length > 0) {
         keys.forEach((key) => {
           let obj = selectedAttr[key];
-          this.setState((prev) => ({
-            ...prev,
-            tick: { [key]: Object.keys(obj)[0] },
-          }));
+          console.log(obj, "Checking");
+          if (Object.keys(obj).length > 0) {
+            this.setState((prev) => ({
+              ...prev,
+              tick: { ...prev.tick, [key]: Object.keys(obj)[0] },
+            }));
+          } else {
+            let { tick } = this.state;
+            console.log(tick);
+            let { [key]: value, ...rest } = tick;
+            this.setState((prev) => ({
+              ...prev,
+              tick: { ...rest },
+            }));
+          }
         });
       }
     }
   }
-    
+
   render() {
     const { attributes, handleSelectedAtt } = this.props;
     const { tick } = this.state;
@@ -53,14 +65,16 @@ class DisplayValue extends Component {
               key={item.value}
               style={{
                 background: displayType === "swatch" ? item.value : "",
-                border: displayType === "swatch" ? "none" : "",
+                border: displayType === "swatch" ? "1px solid #8D8F9A" : "",
+                width: displayType === "swatch" ? "35px" : "",
+                height: displayType === "swatch" ? "35px" : "",
               }}
               className="chosen"
               onClick={() =>
                 handleSelectedAtt(item.value, item.id, displayType, details.id)
               }
             >
-              {displayType === "swatch" ? item.id : item.value}
+              {displayType === "swatch" ? "" : item.value}
               {(tick[details.id] && tick[details.id] === item.value) ||
               tick[details.id] === item.id ? (
                 <FcCheckmark className="tick" />
