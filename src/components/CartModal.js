@@ -1,10 +1,10 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { decrementItems, incrementItems } from "../actions/cart";
 
-class CartModal extends Component {
+class CartModal extends PureComponent {
   incrementNum = (id) => {
     const { dispatch } = this.props;
     dispatch(incrementItems(id));
@@ -19,7 +19,7 @@ class CartModal extends Component {
     let itemsInBag = 0;
     const total = addCart.cart
       ? addCart.cart.reduce((accum, cart) => {
-          let cost = cart.price.find(
+          const cost = cart.price.find(
             (price) =>
               price.currency.symbol === state.currency.defaultCurrency?.symbol
           );
@@ -27,7 +27,6 @@ class CartModal extends Component {
           return accum + cost.amount * cart.no_of_items;
         }, 0)
       : 0;
-    console.log(itemsInBag);
     return (
       <div className="modal">
         <GrClose className="close-modal" onClick={handleCartModal} />
@@ -139,7 +138,7 @@ class CartModal extends Component {
                 <p>Total</p>
                 <p>
                   {state.currency.defaultCurrency?.symbol}
-                  {total}
+                  {total.toFixed(2)}
                 </p>
               </div>
               <div className="view-checkout">

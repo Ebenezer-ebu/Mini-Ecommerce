@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../index";
@@ -12,7 +12,7 @@ import arrow from "../assets/arrow.png";
 import DropDown from "./DropDown";
 import CartModal from "./CartModal";
 
-class Header extends Component {
+class Header extends PureComponent {
   state = {
     modal: false,
   };
@@ -43,7 +43,6 @@ class Header extends Component {
     const totalItems = addCart.cart
       ? addCart.cart?.reduce((accum, item) => accum + item.no_of_items, 0)
       : 0;
-    console.log(totalItems, addCart);
     return (
       <nav className="header">
         <div className="category">

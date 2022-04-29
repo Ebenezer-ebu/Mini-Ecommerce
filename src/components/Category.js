@@ -1,8 +1,8 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
 import ProductCard from "./ProductCard";
 
-class Category extends Component {
+class Category extends PureComponent {
   render() {
     const { state } = this.props;
     const { category } = state;

@@ -1,6 +1,6 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 
-class CheckOut extends Component {
+class CheckOut extends PureComponent {
   render() {
     return (
       <div className="checkout-page">

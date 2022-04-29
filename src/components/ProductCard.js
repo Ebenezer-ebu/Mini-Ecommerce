@@ -1,9 +1,9 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { BsCart2 } from "react-icons/bs";
 
-class ProductCard extends Component {
+class ProductCard extends PureComponent {
   handleSingleProduct = (id) => {
     this.props.navigate(`/product/${id}`);
   };

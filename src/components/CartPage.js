@@ -1,8 +1,8 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { decrementItems, incrementItems } from "../actions/cart";
 
-class CartPage extends Component {
+class CartPage extends PureComponent {
   incrementNum = (id) => {
     const { dispatch } = this.props;
     dispatch(incrementItems(id));
@@ -18,7 +18,7 @@ class CartPage extends Component {
     let itemsInBag = 0;
     const total = addCart.cart
       ? addCart.cart.reduce((accum, cart) => {
-          let cost = cart.price.find(
+          const cost = cart.price.find(
             (price) =>
               price.currency.symbol === state.currency.defaultCurrency?.symbol
           );
@@ -63,11 +63,12 @@ class CartPage extends Component {
                           <div key={i}>
                             {Object.keys(cart.attributes[attr]).map(
                               (key, ind) => (
-                                <div key={ind}>
+                                <div key={ind} style={{ marginRight: "10px" }}>
                                   <p
                                     style={{
                                       margin: "3px 0",
                                       fontWeight: "bold",
+                                      fontSize: "14px",
                                     }}
                                   >
                                     {attr.toUpperCase()}:
@@ -140,7 +141,7 @@ class CartPage extends Component {
                     <span style={{ fontWeight: "bold" }}>
                       {" "}
                       {state.currency.defaultCurrency?.symbol}
-                      {total}
+                      {total.toFixed(2)}
                     </span>
                   </p>
                   <button className="order">ORDER</button>

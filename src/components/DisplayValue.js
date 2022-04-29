@@ -1,7 +1,7 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { FcCheckmark } from "react-icons/fc";
 
-class DisplayValue extends Component {
+class DisplayValue extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +14,7 @@ class DisplayValue extends Component {
     const keys = Object.keys(selectedAttr);
     if (keys.length > 0) {
       keys.forEach((key) => {
-        let obj = selectedAttr[key];
+        const obj = selectedAttr[key];
         this.setState((prev) => ({
           ...prev,
           tick: { [key]: Object.keys(obj)[0] },
@@ -29,15 +29,15 @@ class DisplayValue extends Component {
       const keys = Object.keys(selectedAttr);
       if (keys.length > 0) {
         keys.forEach((key) => {
-          let obj = selectedAttr[key];
+          const obj = selectedAttr[key];
           if (Object.keys(obj).length > 0) {
             this.setState((prev) => ({
               ...prev,
               tick: { ...prev.tick, [key]: Object.keys(obj)[0] },
             }));
           } else {
-            let { tick } = this.state;
-            let { [key]: value, ...rest } = tick;
+            const { tick } = this.state;
+            const { [key]: value, ...rest } = tick;
             this.setState((prev) => ({
               ...prev,
               tick: { ...rest },
@@ -52,7 +52,7 @@ class DisplayValue extends Component {
     const { attributes, handleSelectedAtt } = this.props;
     const { tick } = this.state;
     const details = attributes;
-    let displayType = details.type;
+    const displayType = details.type;
     return (
       <>
         <p>{details.id.toUpperCase()}:</p>

@@ -1,11 +1,11 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect } from "react-redux";
 import { client } from "../index";
 import { GET_CURRENCIES } from "../utils/graphqlApi";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 import { setCurrency, selectedCurrency } from "../actions/currency";
 
-class DropDown extends Component {
+class DropDown extends PureComponent {
   state = {
     active: false,
   };

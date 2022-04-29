@@ -1,12 +1,13 @@
-import { Component } from "react";
+import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
+import parse from "html-react-parser";
 import { GET_PRODUCT_BY_ID } from "../utils/graphqlApi";
 import { addToCart } from "../actions/cart";
 import DisplayValue from "./DisplayValue";
 import { client } from "../index";
 
-class ProductDescription extends Component {
+class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -14,6 +15,7 @@ class ProductDescription extends Component {
       selectedAttr: {},
       allAttr: 0,
       data: [],
+      displayImage: "",
     };
   }
 
@@ -27,9 +29,17 @@ class ProductDescription extends Component {
         if (result.loading) return <p>Loading...</p>;
         if (result.error) return <p>Error Loading Product...</p>;
         if (result.data)
-          this.setState((prev) => ({ ...prev, data: result.data }));
+          this.setState((prev) => ({
+            ...prev,
+            data: result.data,
+            displayImage: result.data.product.gallery[0],
+          }));
       });
   }
+
+  setDisplayImage = (img) => {
+    this.setState((prev) => ({ ...prev, displayImage: img }));
+  };
 
   handleSelectedAtt = (value, id, type, head) => {
     const { selectedAttr } = this.state;
@@ -39,7 +49,7 @@ class ProductDescription extends Component {
         selectedAttr: { ...prev.selectedAttr, [head]: { [id]: [value, type] } },
       }));
     } else {
-      let obj = { [head]: { [id]: [value, type] } };
+      const obj = { [head]: { [id]: [value, type] } };
       this.setState((prev) => ({
         ...prev,
         selectedAttr: { ...prev.selectedAttr, ...obj },
@@ -48,16 +58,12 @@ class ProductDescription extends Component {
   };
 
   handleAddToCart = () => {
-    const { data, selectedAttr } = this.state;
+    const { data, selectedAttr, displayImage } = this.state;
     const { dispatch } = this.props;
     const { product } = data;
     if (!product.inStock) {
       alert("This product is out of stock");
       return;
-    }
-    let images = data.product.gallery;
-    if (images.length < 4) {
-      images = Array(5).fill(images[0]);
     }
     const cart = {
       name: product.name,
@@ -65,14 +71,14 @@ class ProductDescription extends Component {
       id: this.props.params.id,
       price: product.prices,
       attributes: selectedAttr,
-      image: images[images.length - 1],
+      image: displayImage,
       no_of_items: 1,
     };
-    let attrLen = [];
+    const attrLen = [];
     const keys = Object.keys(selectedAttr);
     if (keys.length > 0) {
       keys.forEach((key) => {
-        let obj = selectedAttr[key];
+        const obj = selectedAttr[key];
         attrLen.push(Object.values(obj));
       });
     }
@@ -84,30 +90,30 @@ class ProductDescription extends Component {
   };
   render() {
     const { state } = this.props;
-    const { data, selectedAttr } = this.state;
+    const { data, selectedAttr, displayImage } = this.state;
     const { product } = data;
-    let images = product?.gallery;
-    if (images?.length < 4) {
-      images = Array(5).fill(images[0]);
-    }
-    let miniImages = images?.slice(1, 5);
+    const images = product?.gallery;
     const price = product?.prices.find(
       (cost) => cost.currency.symbol === state.currency.defaultCurrency?.symbol
     );
-    const html = { __html: product?.description };
+    const html = product?.description;
     return (
       <div className="container">
         <div className="description-content">
-          <div className="img-grid">
-            {miniImages?.map((img, indx) => (
-              <img src={img} alt={product.brand} key={indx} />
-            ))}
+          <div className="fixed">
+            <div className="img-grid">
+              {images?.map((img, indx) => (
+                <img
+                  src={img}
+                  alt={product.brand}
+                  key={indx}
+                  onClick={() => this.setDisplayImage(img)}
+                />
+              ))}
+            </div>
           </div>
           <div className="main-img">
-            <img
-              src={images && images[images.length - 1]}
-              alt={product?.brand}
-            />
+            <img src={displayImage} alt={product?.brand} />
             <h3>{product?.inStock ? "" : "OUT OF STOCK"}</h3>
           </div>
           <div className="description">
@@ -132,7 +138,7 @@ class ProductDescription extends Component {
             <button className="add-to-cart" onClick={this.handleAddToCart}>
               ADD TO CART
             </button>
-            <p className="details" dangerouslySetInnerHTML={html} />
+            <div className="details">{html && parse(html)}</div>
           </div>
         </div>
       </div>
