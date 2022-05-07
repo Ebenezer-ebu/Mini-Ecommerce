@@ -1,5 +1,4 @@
 import { PureComponent } from "react";
-import { FcCheckmark } from "react-icons/fc";
 
 class DisplayValue extends PureComponent {
   constructor(props) {
@@ -58,25 +57,38 @@ class DisplayValue extends PureComponent {
         <p>{details.id.toUpperCase()}:</p>
         <div>
           {details.items.map((item) => (
-            <button
+            <div
               key={item.value}
               style={{
-                background: displayType === "swatch" ? item.value : "",
-                border: displayType === "swatch" ? "1px solid #8D8F9A" : "",
-                width: displayType === "swatch" ? "35px" : "",
-                height: displayType === "swatch" ? "35px" : "",
+                marginRight: "10px",
+                padding: "2px",
+                border:
+                  (tick[details.id] && tick[details.id] === item.value) ||
+                  tick[details.id] === item.id
+                    ? "3px solid #5ece7b"
+                    : "",
               }}
-              className="chosen"
-              onClick={() =>
-                handleSelectedAtt(item.value, item.id, displayType, details.id)
-              }
             >
-              {displayType === "swatch" ? "" : item.value}
-              {(tick[details.id] && tick[details.id] === item.value) ||
-              tick[details.id] === item.id ? (
-                <FcCheckmark className="tick" />
-              ) : null}
-            </button>
+              <button
+                style={{
+                  background: displayType === "swatch" ? item.value : "",
+                  border: "0.5px solid #8D8F9A",
+                  width: displayType === "swatch" ? "35px" : "",
+                  height: displayType === "swatch" ? "35px" : "",
+                }}
+                className="chosen"
+                onClick={() =>
+                  handleSelectedAtt(
+                    item.value,
+                    item.id,
+                    displayType,
+                    details.id
+                  )
+                }
+              >
+                <b>{displayType === "swatch" ? "" : item.value}</b>
+              </button>
+            </div>
           ))}
         </div>
       </>

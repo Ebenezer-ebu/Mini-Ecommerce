@@ -20,6 +20,7 @@ class ProductCard extends PureComponent {
     return (
       <div
         className="product-card"
+        style={{ opacity: data?.inStock ? "" : 0.5 }}
         onClick={() => this.handleSingleProduct(data?.id)}
       >
         <div className="image">

@@ -21,9 +21,31 @@ class Header extends PureComponent {
     this.props.navigate("/");
   };
 
-  handleCartModal = () => {
-    this.setState((prev) => ({ ...prev, modal: !this.state.modal }));
+  handleCartModal = (e) => {
+    if (!this.state.modal) {
+      console.log("No", this.state.modal, e.target, this.tag);
+      document.addEventListener("click", this.handleOutsideClick, false);
+    } else {
+      console.log("Yes");
+      document.removeEventListener("click", this.handleOutsideClick, false);
+    }
+    this.setState((prev) => ({ modal: !prev.modal }));
   };
+
+  handleOutsideClick = (e) => {
+    if (!this.tag.contains(e.target) && !this.state.modal) {
+      console.log("Hope", e.target);
+      // this.setState((prev) => ({ ...prev, modal: !this.state.modal }));
+    }
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("there was an update", prevProps, prevState, this.state);
+    if (prevState.modal !== this.state.modal) {
+      console.log("Yesssss");
+      return false;
+    }
+  }
 
   componentDidMount() {
     client
@@ -69,16 +91,20 @@ class Header extends PureComponent {
         </div>
         <div className="cart-section">
           <DropDown handleCartModal={this.handleCartModal} modal={modal} />
-          <BsCart2
-            size={20}
-            onClick={this.handleCartModal}
-            style={{ cursor: "pointer" }}
-          />
-          <div className="num-of-items">
-            {totalItems > 0 ? totalItems : null}
+          <div onClick={this.handleCartModal} style={{ cursor: "pointer" }}>
+            <BsCart2 size={20} />
+            <div className="num-of-items">
+              {totalItems > 0 ? totalItems : null}
+            </div>
           </div>
         </div>
-        {modal && <CartModal handleCartModal={this.handleCartModal} />}
+        {modal && (
+          <CartModal
+            handleCartModal={this.handleCartModal}
+            node={this}
+            modal={modal}
+          />
+        )}
       </nav>
     );
   }

@@ -1,7 +1,6 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { GrClose } from "react-icons/gr";
 import { decrementItems, incrementItems } from "../actions/cart";
 
 class CartModal extends PureComponent {
@@ -14,7 +13,8 @@ class CartModal extends PureComponent {
     dispatch(decrementItems(id));
   };
   render() {
-    const { state, handleCartModal } = this.props;
+    const { state, handleCartModal, node } = this.props;
+    console.log(node)
     const { addCart } = state;
     let itemsInBag = 0;
     const total = addCart.cart
@@ -29,8 +29,13 @@ class CartModal extends PureComponent {
       : 0;
     return (
       <div className="modal">
-        <GrClose className="close-modal" onClick={handleCartModal} />
-        <div className="modal-container">
+        {/* <GrClose className="close-modal" onClick={handleCartModal} /> */}
+        <div
+          className="modal-container"
+          ref={(tag) => {
+            node.tag = tag;
+          }}
+        >
           <div>
             <span className="my-bag">My Bag</span>
             {addCart.cart ? (
@@ -40,27 +45,30 @@ class CartModal extends PureComponent {
             ) : null}
           </div>
           {addCart.cart ? (
-            <>
+            <div>
               {addCart.cart.map((cart, i) => (
                 <div className="modal-content" key={i}>
                   <div className="product-details">
                     <div className="sub-details">
                       <p className="">{cart.name}</p>
-                      <p className="">
-                        {
-                          cart.price.find(
-                            (price) =>
-                              price.currency.symbol ===
-                              state.currency.defaultCurrency?.symbol
-                          ).currency.symbol
-                        }
-                        {
-                          cart.price.find(
-                            (price) =>
-                              price.currency.symbol ===
-                              state.currency.defaultCurrency?.symbol
-                          ).amount
-                        }
+                      <p className="">{cart.brand}</p>
+                      <p>
+                        <b>
+                          {
+                            cart.price.find(
+                              (price) =>
+                                price.currency.symbol ===
+                                state.currency.defaultCurrency?.symbol
+                            ).currency.symbol
+                          }
+                          {
+                            cart.price.find(
+                              (price) =>
+                                price.currency.symbol ===
+                                state.currency.defaultCurrency?.symbol
+                            ).amount
+                          }
+                        </b>
                       </p>
                     </div>
                     <div className="check-size">
@@ -153,7 +161,7 @@ class CartModal extends PureComponent {
                   <button>CHECKOUT</button>
                 </Link>
               </div>
-            </>
+            </div>
           ) : (
             <h4>No Items In Bag</h4>
           )}

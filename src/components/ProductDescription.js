@@ -112,7 +112,10 @@ class ProductDescription extends PureComponent {
               ))}
             </div>
           </div>
-          <div className="main-img">
+          <div
+            className="main-img"
+            style={{ opacity: product?.inStock ? "" : 0.5 }}
+          >
             <img src={displayImage} alt={product?.brand} />
             <h3>{product?.inStock ? "" : "OUT OF STOCK"}</h3>
           </div>

@@ -47,9 +47,9 @@ class DropDown extends PureComponent {
     const { active } = this.state;
     return (
       <div className="dropdown-container">
-        <div className="selected">
+        <div className="selected icons" onClick={this.setActive}>
           {currency.defaultCurrency?.symbol}
-          <div className="icons" onClick={this.setActive}>
+          <div className="icons">
             {active ? (
               <RiArrowDropUpLine size={20} />
             ) : (
