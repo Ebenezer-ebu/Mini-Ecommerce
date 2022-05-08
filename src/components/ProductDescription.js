@@ -10,7 +10,6 @@ import { client } from "../index";
 class ProductDescription extends PureComponent {
   constructor(props) {
     super(props);
-
     this.state = {
       selectedAttr: {},
       allAttr: 0,
