@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import OutsideClickHandler from "react-outside-click-handler";
 import { client } from "../index";
 import { GET_CURRENCIES } from "../utils/graphqlApi";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
@@ -14,7 +15,7 @@ class DropDown extends PureComponent {
   };
 
   setActive = () => {
-    this.setState((prev) => ({ ...prev, active: !this.state.active }));
+    this.setState((prev) => ({ active: !prev.active }));
   };
 
   componentDidMount() {
@@ -28,48 +29,41 @@ class DropDown extends PureComponent {
         }
       });
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.active !== this.state.active) {
-      if (this.props.modal && this.state.active) {
-        this.props.handleCartModal();
-      }
-    }
-    if (prevProps.modal !== this.props.modal) {
-      if (this.props.modal && this.state.active) {
-        this.setActive();
-      }
-    }
-  }
   render() {
     const { state } = this.props;
     const { currency } = state;
-
     const { active } = this.state;
     return (
       <div className="dropdown-container">
-        <div className="selected icons" onClick={this.setActive}>
-          {currency.defaultCurrency?.symbol}
-          <div className="icons">
-            {active ? (
-              <RiArrowDropUpLine size={20} />
-            ) : (
-              <RiArrowDropDownLine size={20} />
-            )}
+        <OutsideClickHandler
+          onOutsideClick={(e) => {
+            this.setState({ active: false });
+          }}
+        >
+          <div className="selected icons" onClick={this.setActive}>
+            {currency.defaultCurrency?.symbol}
+            <div className="icons">
+              {active ? (
+                <RiArrowDropUpLine size={20} />
+              ) : (
+                <RiArrowDropDownLine size={20} />
+              )}
+            </div>
           </div>
-        </div>
-        {active ? (
-          <div className="list">
-            {currency?.currency.map((curr, idx) => (
-              <div
-                key={idx}
-                className="dropdown-menu"
-                onClick={() => this.handleSelected(curr)}
-              >
-                {`${curr.symbol} ${curr.label}`}
-              </div>
-            ))}
-          </div>
-        ) : null}
+          {active ? (
+            <div className="list">
+              {currency?.currency.map((curr, idx) => (
+                <div
+                  key={idx}
+                  className="dropdown-menu"
+                  onClick={() => this.handleSelected(curr)}
+                >
+                  {`${curr.symbol} ${curr.label}`}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </OutsideClickHandler>
       </div>
     );
   }

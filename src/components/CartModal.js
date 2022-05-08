@@ -1,6 +1,7 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import OutsideClickHandler from "react-outside-click-handler";
 import Content from "./Content";
 import { decrementItems, incrementItems } from "../actions/cart";
 
@@ -14,8 +15,7 @@ class CartModal extends PureComponent {
     dispatch(decrementItems(id));
   };
   render() {
-    const { state, handleCartModal, node } = this.props;
-    console.log(node);
+    const { state, handleCartModal } = this.props;
     const { addCart } = state;
     let itemsInBag = 0;
     const total = addCart.cart
@@ -30,50 +30,55 @@ class CartModal extends PureComponent {
       : 0;
     return (
       <div className="modal">
-        {/* <GrClose className="close-modal" onClick={handleCartModal} /> */}
-        <div
-          className="modal-container"
-          ref={(tag) => {
-            node.tag = tag;
+        <OutsideClickHandler
+          onOutsideClick={(e) => {
+            console.log(e);
+            handleCartModal();
           }}
         >
-          <div>
-            <span className="my-bag">My Bag</span>
-            {addCart.cart ? (
-              <span>{` ,${itemsInBag} ${
-                itemsInBag > 1 ? "items" : "item"
-              }`}</span>
-            ) : null}
-          </div>
-          {addCart.cart ? (
+          <div className="modal-container">
             <div>
-              {addCart.cart.map((cart, i) => (
-                <Content cart={cart} key={i} />
-              ))}
-              <div className="total">
-                <p>Total</p>
-                <p>
-                  {state.currency.defaultCurrency?.symbol}
-                  {total.toFixed(2)}
-                </p>
-              </div>
-              <div className="view-checkout">
-                <Link to="/view-bag" className="view" onClick={handleCartModal}>
-                  <button>VIEW BAG</button>
-                </Link>
-                <Link
-                  to="/checkout"
-                  onClick={handleCartModal}
-                  className="checkout"
-                >
-                  <button>CHECKOUT</button>
-                </Link>
-              </div>
+              <span className="my-bag">My Bag</span>
+              {addCart.cart ? (
+                <span>{` ,${itemsInBag} ${
+                  itemsInBag > 1 ? "items" : "item"
+                }`}</span>
+              ) : null}
             </div>
-          ) : (
-            <h4>No Items In Bag</h4>
-          )}
-        </div>
+            {addCart.cart ? (
+              <div>
+                {addCart.cart.map((cart, i) => (
+                  <Content cart={cart} key={i} />
+                ))}
+                <div className="total">
+                  <p>Total</p>
+                  <p>
+                    {state.currency.defaultCurrency?.symbol}
+                    {total.toFixed(2)}
+                  </p>
+                </div>
+                <div className="view-checkout">
+                  <Link
+                    to="/view-bag"
+                    className="view"
+                    onClick={handleCartModal}
+                  >
+                    <button>VIEW BAG</button>
+                  </Link>
+                  <Link
+                    to="/checkout"
+                    onClick={handleCartModal}
+                    className="checkout"
+                  >
+                    <button>CHECKOUT</button>
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <h4>No Items In Bag</h4>
+            )}
+          </div>
+        </OutsideClickHandler>
       </div>
     );
   }
