@@ -32,11 +32,9 @@ class DisplayValue extends PureComponent {
     }
   }
   render() {
-    console.log("tick", this.state);
     const { attributes, handleSelectedAtt } = this.props;
     const { tick } = this.state;
     const details = attributes;
-    console.log(details);
     const displayType = details.type;
     return (
       <>

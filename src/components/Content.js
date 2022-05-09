@@ -1,7 +1,12 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import { updateSelection } from "../actions/cart";
 
 class Content extends Component {
+  updateSelected = (id, attr, value) => {
+    const { dispatch } = this.props;
+    dispatch(updateSelection(id, attr, value));
+  };
   render() {
     const { cart, state, incrementNum, decrementNum, index } = this.props;
     return (
@@ -75,6 +80,7 @@ class Content extends Component {
                         width: attr === "Color" ? "30px" : "",
                         height: attr === "Color" ? "30px" : "",
                       }}
+                      onClick={() => this.updateSelected(index, attr, key)}
                     >
                       {attr === "Color" ? "" : key}
                     </button>

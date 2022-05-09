@@ -1,7 +1,12 @@
 import { PureComponent } from "react";
 import { connect } from "react-redux";
+import { updateSelection } from "../actions/cart";
 
 class CartPageContent extends PureComponent {
+  updateSelected = (id, attr, value) => {
+    const { dispatch } = this.props;
+    dispatch(updateSelection(id, attr, value));
+  };
   render() {
     const { cart, state, incrementNum, decrementNum, index } = this.props;
     return (
@@ -70,6 +75,7 @@ class CartPageContent extends PureComponent {
                         width: attr === "Color" ? "35px" : "",
                         height: attr === "Color" ? "35px" : "",
                       }}
+                      onClick={() => this.updateSelected(index, attr, key)}
                     >
                       {attr === "Color" ? "" : key}
                     </button>

@@ -96,7 +96,6 @@ class ProductDescription extends PureComponent {
         attrLen.push(Object.values(obj));
       });
     }
-    console.log(cart);
     if (product.attributes.length === attrLen.length) {
       dispatch(addToCart(cart));
     } else {

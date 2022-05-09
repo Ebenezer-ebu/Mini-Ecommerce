@@ -1,4 +1,4 @@
-import { ADD_TO_CART, INCREMENT, DECREMENT } from "../actions/cart";
+import { ADD_TO_CART, INCREMENT, DECREMENT, SELECTED } from "../actions/cart";
 
 export function addCart(state = {}, action) {
   switch (action.type) {
@@ -50,6 +50,23 @@ export function addCart(state = {}, action) {
         cart: state.cart.map((cart, i) => {
           if (cart.id === action.id && i === action.index) {
             cart.no_of_items--;
+          }
+          return cart;
+        }),
+      };
+    case SELECTED:
+      return {
+        ...state,
+        cart: state.cart.map((cart, i) => {
+          if (i === action.index) {
+            let keys = Object.keys(cart.attributes[action.attr]);
+            keys.forEach((key) => {
+              if (key === action.value) {
+                cart.attributes[action.attr][key] = true;
+              } else {
+                cart.attributes[action.attr][key] = false;
+              }
+            });
           }
           return cart;
         }),
