@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 class CartPageContent extends PureComponent {
   render() {
-    const { cart, state } = this.props;
+    const { cart, state, incrementNum, decrementNum, index } = this.props;
     return (
       <div className="stock-content">
         <div>
@@ -28,37 +28,52 @@ class CartPageContent extends PureComponent {
           <div className="attr">
             {Object.keys(cart.attributes).map((attr, i) => (
               <div key={i}>
+                <p
+                  style={{
+                    margin: "3px 0",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                >
+                  {attr.toUpperCase()}:
+                </p>
                 {Object.keys(cart.attributes[attr]).map((key, ind) => (
-                  <div key={ind} style={{ marginRight: "10px" }}>
-                    <p
-                      style={{
-                        margin: "3px 0",
-                        fontWeight: "bold",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {attr.toUpperCase()}:
-                    </p>
-
+                  <span
+                    key={ind}
+                    style={{
+                      display: "inline-block",
+                      border:
+                        cart.attributes[attr][key] && attr === "Color"
+                          ? "3px solid #5ece7b"
+                          : "",
+                      width: attr === "Color" ? "35px" : "",
+                      height: "35px",
+                      margin: "0 5px 15px 0",
+                      padding: "1px",
+                    }}
+                  >
                     <button
                       key={ind}
                       className="measure"
                       style={{
                         background:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? cart.attributes[attr][key][0]
+                          attr === "Color"
+                            ? key
+                            : attr !== "Color" && cart.attributes[attr][key]
+                            ? "black"
                             : "",
-                        border:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? "none"
+                        color:
+                          attr !== "Color" && cart.attributes[attr][key]
+                            ? "#fff"
                             : "",
+                        border: attr === "Color" ? "0.5px solid #8D8F9A" : "",
+                        width: attr === "Color" ? "35px" : "",
+                        height: attr === "Color" ? "35px" : "",
                       }}
                     >
-                      {cart.attributes[attr][key][1] === "swatch"
-                        ? key
-                        : cart.attributes[attr][key][0]}
+                      {attr === "Color" ? "" : key}
                     </button>
-                  </div>
+                  </span>
                 ))}
               </div>
             ))}
@@ -68,14 +83,14 @@ class CartPageContent extends PureComponent {
           <div className="rating">
             <button
               className="gauge2"
-              onClick={() => this.incrementNum(cart.id)}
+              onClick={() => incrementNum(cart.id, index)}
             >
               ＋
             </button>
             <p>{cart.no_of_items}</p>
             <button
               className="gauge2"
-              onClick={() => this.decrementNum(cart.id)}
+              onClick={() => decrementNum(cart.id, index)}
             >
               －
             </button>

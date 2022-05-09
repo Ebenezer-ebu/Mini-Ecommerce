@@ -4,14 +4,14 @@ import { decrementItems, incrementItems } from "../actions/cart";
 import CartPageContent from "./CartPageContent";
 
 class CartPage extends PureComponent {
-  incrementNum = (id) => {
+  incrementNum = (id, index) => {
     const { dispatch } = this.props;
-    dispatch(incrementItems(id));
+    dispatch(incrementItems(id, index));
   };
 
-  decrementNum = (id) => {
+  decrementNum = (id, index) => {
     const { dispatch } = this.props;
-    dispatch(decrementItems(id));
+    dispatch(decrementItems(id, index));
   };
   render() {
     const { state } = this.props;
@@ -36,8 +36,14 @@ class CartPage extends PureComponent {
           <div>
             {addCart.cart && addCart.cart.length > 0 ? (
               <>
-                {addCart.cart.map((cart) => (
-                  <CartPageContent cart={cart} key={cart.id} />
+                {addCart.cart.map((cart, indx) => (
+                  <CartPageContent
+                    cart={cart}
+                    index={indx}
+                    key={cart.id}
+                    incrementNum={this.incrementNum}
+                    decrementNum={this.decrementNum}
+                  />
                 ))}
                 <div className="order-item">
                   <div>

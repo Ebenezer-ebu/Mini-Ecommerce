@@ -290,7 +290,7 @@ code {
 
 .size {
   padding: 4px 8px;
-  margin-right: 5px;
+  margin: 0 5px 5px 0;
   border: 1px solid #1d1f22;
   box-sizing: border-box;
   background: #fff;
@@ -302,6 +302,7 @@ code {
   box-sizing: border-box;
   background: #fff;
   font-family: "Source Sans Pro";
+  cursor: pointer;
 }
 
 .gauge2 {
@@ -311,6 +312,7 @@ code {
   font-family: "Source Sans Pro";
   width: 45px;
   height: 45px;
+  cursor: pointer;
 }
 
 .view-checkout {
@@ -495,7 +497,7 @@ code {
 
 .order-item {
   border-top: 1px solid #e5e5e5;
-  width: 80%;
+  width: 85%;
 }
 
 .description {
@@ -518,10 +520,11 @@ code {
 .stock-content {
   display: flex;
   justify-content: space-between;
-  width: 80%;
+  width: 85%;
   border-top: 1px solid #e5e5e5;
   padding: 20px 0;
   height: 170px;
+  overflow: scroll;
 }
 
 .rate2 {
@@ -561,6 +564,7 @@ code {
 .check-size {
   display: flex;
   flex-direction: column;
+  /* width: 30px */
 }
 
 .my-bag {
@@ -570,6 +574,7 @@ code {
 
 .attr {
   display: flex;
+  flex-direction: column;
 }
 
 .top {

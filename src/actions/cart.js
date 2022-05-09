@@ -9,16 +9,18 @@ export function addToCart(cart) {
   };
 }
 
-export function decrementItems(id) {
+export function decrementItems(id, index) {
   return {
     type: DECREMENT,
     id,
+    index
   };
 }
 
-export function incrementItems(id) {
+export function incrementItems(id, index) {
   return {
     type: INCREMENT,
     id,
+    index,
   };
 }

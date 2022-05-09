@@ -6,13 +6,13 @@ import Content from "./Content";
 import { decrementItems, incrementItems } from "../actions/cart";
 
 class CartModal extends PureComponent {
-  incrementNum = (id) => {
+  incrementNum = (id, index) => {
     const { dispatch } = this.props;
-    dispatch(incrementItems(id));
+    dispatch(incrementItems(id, index));
   };
-  decrementNum = (id) => {
+  decrementNum = (id, index) => {
     const { dispatch } = this.props;
-    dispatch(decrementItems(id));
+    dispatch(decrementItems(id, index));
   };
   render() {
     const { state, handleCartModal } = this.props;
@@ -32,7 +32,6 @@ class CartModal extends PureComponent {
       <div className="modal">
         <OutsideClickHandler
           onOutsideClick={(e) => {
-            console.log(e);
             handleCartModal();
           }}
         >
@@ -48,7 +47,13 @@ class CartModal extends PureComponent {
             {addCart.cart ? (
               <div>
                 {addCart.cart.map((cart, i) => (
-                  <Content cart={cart} key={i} />
+                  <Content
+                    cart={cart}
+                    key={i}
+                    index={i}
+                    incrementNum={this.incrementNum}
+                    decrementNum={this.decrementNum}
+                  />
                 ))}
                 <div className="total">
                   <p>Total</p>

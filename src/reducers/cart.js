@@ -25,8 +25,8 @@ export function addCart(state = {}, action) {
       return { ...state, cart: [...state.cart, action.cart] };
     case INCREMENT:
       return {
-        cart: state.cart.map((cart) => {
-          if (cart.id === action.id) {
+        cart: state.cart.map((cart, i) => {
+          if (cart.id === action.id && i === action.index) {
             cart.no_of_items++;
           }
           return cart;
@@ -34,8 +34,12 @@ export function addCart(state = {}, action) {
       };
 
     case DECREMENT:
-      let item = state.cart.find((cart) => cart.id === action.id);
-      let ind = state.cart.findIndex((cart) => cart.id === action.id);
+      let item = state.cart.find(
+        (cart, i) => cart.id === action.id && i === action.index
+      );
+      let ind = state.cart.findIndex(
+        (cart, i) => cart.id === action.id && i === action.index
+      );
       if (item.no_of_items === 1) {
         state.cart.splice(ind, 1);
         return {
@@ -43,8 +47,8 @@ export function addCart(state = {}, action) {
         };
       }
       return {
-        cart: state.cart.map((cart) => {
-          if (cart.id === action.id) {
+        cart: state.cart.map((cart, i) => {
+          if (cart.id === action.id && i === action.index) {
             cart.no_of_items--;
           }
           return cart;

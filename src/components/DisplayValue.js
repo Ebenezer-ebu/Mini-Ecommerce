@@ -14,10 +14,7 @@ class DisplayValue extends PureComponent {
     if (keys.length > 0) {
       keys.forEach((key) => {
         const obj = selectedAttr[key];
-        this.setState((prev) => ({
-          ...prev,
-          tick: { [key]: Object.keys(obj)[0] },
-        }));
+        this.setState((prev) => ({ tick: { ...prev.tick, [key]: obj } }));
       });
     }
   }
@@ -29,28 +26,17 @@ class DisplayValue extends PureComponent {
       if (keys.length > 0) {
         keys.forEach((key) => {
           const obj = selectedAttr[key];
-          if (Object.keys(obj).length > 0) {
-            this.setState((prev) => ({
-              ...prev,
-              tick: { ...prev.tick, [key]: Object.keys(obj)[0] },
-            }));
-          } else {
-            const { tick } = this.state;
-            const { [key]: value, ...rest } = tick;
-            this.setState((prev) => ({
-              ...prev,
-              tick: { ...rest },
-            }));
-          }
+          this.setState((prev) => ({ tick: { ...prev.tick, [key]: obj } }));
         });
       }
     }
   }
-
   render() {
+    console.log("tick", this.state);
     const { attributes, handleSelectedAtt } = this.props;
     const { tick } = this.state;
     const details = attributes;
+    console.log(details);
     const displayType = details.type;
     return (
       <>
@@ -63,18 +49,29 @@ class DisplayValue extends PureComponent {
                 marginRight: "10px",
                 padding: "2px",
                 border:
-                  (tick[details.id] && tick[details.id] === item.value) ||
-                  tick[details.id] === item.id
+                  tick[details.id] &&
+                  tick[details.id][item.value] &&
+                  displayType === "swatch"
                     ? "3px solid #5ece7b"
                     : "",
               }}
             >
               <button
                 style={{
-                  background: displayType === "swatch" ? item.value : "",
+                  background: displayType === "swatch" ? item.value : tick[details.id] &&
+                    tick[details.id][item.value] &&
+                    displayType !== "swatch"
+                      ? "black"
+                      : "",
                   border: "0.5px solid #8D8F9A",
                   width: displayType === "swatch" ? "35px" : "",
                   height: displayType === "swatch" ? "35px" : "",
+                  color:
+                    tick[details.id] &&
+                    tick[details.id][item.value] &&
+                    displayType !== "swatch"
+                      ? "#fff"
+                      : "",
                 }}
                 className="chosen"
                 onClick={() =>

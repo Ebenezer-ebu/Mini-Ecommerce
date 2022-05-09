@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 
 class Content extends Component {
   render() {
-    const { cart, state } = this.props;
+    const { cart, state, incrementNum, decrementNum, index } = this.props;
     return (
       <div className="modal-content">
         <div className="product-details">
-          <div className="sub-details">
+          <div>
             <p className="">{cart.name}</p>
             <p className="">{cart.brand}</p>
             <p>
@@ -32,54 +32,70 @@ class Content extends Component {
           <div className="check-size">
             {Object.keys(cart.attributes).map((attr, i) => (
               <div key={i}>
+                <p
+                  style={{
+                    margin: "3px 0",
+                    fontWeight: "bold",
+                    fontSize: "14px",
+                  }}
+                >
+                  {attr}
+                </p>
                 {Object.keys(cart.attributes[attr]).map((key, ind) => (
-                  <div key={ind}>
-                    <p
-                      style={{
-                        margin: "3px 0",
-                        fontWeight: "bold",
-                        fontSize: "14px",
-                      }}
-                    >
-                      {attr}
-                    </p>
+                  <span
+                    key={ind}
+                    style={{
+                      display: "inline-block",
+                      padding: "1px",
+                      border:
+                        cart.attributes[attr][key] && attr === "Color"
+                          ? "2px solid #5ece7b"
+                          : "",
+                      width:
+                        cart.attributes[attr][key] && attr === "Color"
+                          ? "30px"
+                          : "",
+                      height: "30px",
+                    }}
+                  >
                     <button
                       className="size"
                       style={{
                         background:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? cart.attributes[attr][key][0]
+                          attr === "Color"
+                            ? key
+                            : attr !== "Color" && cart.attributes[attr][key]
+                            ? "black"
                             : "",
-                        border:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? "none"
+                        color:
+                          attr !== "Color" && cart.attributes[attr][key]
+                            ? "#fff"
                             : "",
-                        width:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? "30px"
-                            : "",
-                        height:
-                          cart.attributes[attr][key][1] === "swatch"
-                            ? "30px"
-                            : "",
+                        border: attr === "Color" ? "0.5px solid #8D8F9A" : "",
+                        width: attr === "Color" ? "30px" : "",
+                        height: attr === "Color" ? "30px" : "",
                       }}
                     >
-                      {cart.attributes[attr][key][1] === "swatch"
-                        ? ""
-                        : cart.attributes[attr][key][0]}
+                      {attr === "Color" ? "" : key}
                     </button>
-                  </div>
+                  </span>
                 ))}
               </div>
             ))}
           </div>
         </div>
         <div className="rate">
-          <button className="gauge" onClick={() => this.incrementNum(cart.id)}>
+          <button
+            className="gauge"
+            onClick={() => incrementNum(cart.id, index)}
+          >
             ＋
           </button>
           <p className="count">{cart.no_of_items}</p>
-          <button className="gauge" onClick={() => this.decrementNum(cart.id)}>
+          <button
+            className="gauge"
+            onClick={() => decrementNum(cart.id, index)}
+          >
             －
           </button>
         </div>
@@ -91,10 +107,12 @@ class Content extends Component {
   }
 }
 
-function mapStateToProps(state, { cart }) {
+function mapStateToProps(state, { cart, incrementNum, decrementNum }) {
   return {
     state,
     cart,
+    incrementNum,
+    decrementNum,
   };
 }
 

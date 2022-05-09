@@ -41,14 +41,29 @@ class ProductDescription extends PureComponent {
   };
 
   handleSelectedAtt = (value, id, type, head) => {
-    const { selectedAttr } = this.state;
+    const { selectedAttr, data } = this.state;
+    const attr = data.product.attributes;
+    const selec = attr.find((el) => el.id === head);
+    const { items } = selec;
     if (selectedAttr[head]) {
+      const setObj = items.map((item) => {
+        if (item.value === value) {
+          return { [value]: true };
+        } else return { [item.value]: false };
+      });
+      const object = Object.assign({}, ...setObj);
       this.setState((prev) => ({
         ...prev,
-        selectedAttr: { ...prev.selectedAttr, [head]: { [id]: [value, type] } },
+        selectedAttr: { ...prev.selectedAttr, [head]: object },
       }));
     } else {
-      const obj = { [head]: { [id]: [value, type] } };
+      const setObj = items.map((item) => {
+        if (item.value === value) {
+          return { [value]: true };
+        } else return { [item.value]: false };
+      });
+      const object = Object.assign({}, ...setObj);
+      const obj = { [head]: object };
       this.setState((prev) => ({
         ...prev,
         selectedAttr: { ...prev.selectedAttr, ...obj },
@@ -81,6 +96,7 @@ class ProductDescription extends PureComponent {
         attrLen.push(Object.values(obj));
       });
     }
+    console.log(cart);
     if (product.attributes.length === attrLen.length) {
       dispatch(addToCart(cart));
     } else {
