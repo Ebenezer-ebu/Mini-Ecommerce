@@ -12,6 +12,7 @@ class DropDown extends PureComponent {
   };
   handleSelected = (currency) => {
     this.props.dispatch(selectedCurrency(currency));
+    this.setState((prev) => ({ active: !prev.active }));
   };
 
   setActive = () => {

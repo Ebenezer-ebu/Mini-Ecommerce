@@ -1,5 +1,13 @@
 import { gql } from "@apollo/client";
 
+export const CATEGORIES = gql`
+  query {
+    categories {
+      name
+    }
+  }
+`;
+
 export const GET_PRODUCTS = gql`
   query {
     categories {
@@ -24,8 +32,8 @@ export const GET_PRODUCTS = gql`
 `;
 
 export const GET_PRODUCTS_BY_CATEGORY = gql`
-  query {
-    category(input: { title: "tech" }) {
+  query category($input: CategoryInput) {
+    category(input: $input) {
       name
       products {
         id

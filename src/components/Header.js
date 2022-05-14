@@ -2,7 +2,7 @@ import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { client } from "../index";
-import { GET_PRODUCTS } from "../utils/graphqlApi";
+import { CATEGORIES } from "../utils/graphqlApi";
 import { loadingData, getProducts, errorData } from "../actions/index";
 import { setCategory } from "../actions/category";
 import { BsCart2 } from "react-icons/bs";
@@ -33,7 +33,7 @@ class Header extends PureComponent {
   componentDidMount() {
     client
       .query({
-        query: GET_PRODUCTS,
+        query: CATEGORIES,
       })
       .then((result) => {
         if (result.loading) this.props.dispatch(loadingData(result.loading));

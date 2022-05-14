@@ -1,12 +1,7 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { updateSelection } from "../actions/cart";
 
 class Content extends Component {
-  updateSelected = (id, attr, value) => {
-    const { dispatch } = this.props;
-    dispatch(updateSelection(id, attr, value));
-  };
   render() {
     const { cart, state, incrementNum, decrementNum, index } = this.props;
     return (
@@ -35,11 +30,11 @@ class Content extends Component {
             </p>
           </div>
           <div className="check-size">
-            {Object.keys(cart.attributes).map((attr, i) => (
+            {cart.attributes && Object.keys(cart.attributes).map((attr, i) => (
               <div key={i}>
                 <p
                   style={{
-                    margin: "3px 0",
+                    margin: "5px 0 0 0",
                     fontWeight: "bold",
                     fontSize: "14px",
                   }}
@@ -50,17 +45,16 @@ class Content extends Component {
                   <span
                     key={ind}
                     style={{
-                      display: "inline-block",
-                      padding: "1px",
+                      display: "inline-flex",
                       border:
                         cart.attributes[attr][key] && attr === "Color"
                           ? "2px solid #5ece7b"
                           : "",
                       width:
                         cart.attributes[attr][key] && attr === "Color"
-                          ? "30px"
+                          ? "17px"
                           : "",
-                      height: "30px",
+                      margin: "0 5px 0 0",
                     }}
                   >
                     <button
@@ -77,10 +71,9 @@ class Content extends Component {
                             ? "#fff"
                             : "",
                         border: attr === "Color" ? "0.5px solid #8D8F9A" : "",
-                        width: attr === "Color" ? "30px" : "",
-                        height: attr === "Color" ? "30px" : "",
+                        width: attr === "Color" ? "16px" : "",
+                        height: attr === "Color" ? "16px" : "",
                       }}
-                      onClick={() => this.updateSelected(index, attr, key)}
                     >
                       {attr === "Color" ? "" : key}
                     </button>
@@ -106,7 +99,7 @@ class Content extends Component {
           </button>
         </div>
         <div className="mini-image">
-          <img src={cart.image} alt={cart.image} className="cart-image" />
+          <img src={cart.image[0]} alt={cart.image[0]} className="cart-image" />
         </div>
       </div>
     );

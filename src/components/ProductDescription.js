@@ -85,7 +85,7 @@ class ProductDescription extends PureComponent {
       id: this.props.params.id,
       price: product.prices,
       attributes: selectedAttr,
-      image: displayImage,
+      image: product.gallery,
       no_of_items: 1,
     };
     const attrLen = [];
@@ -151,7 +151,9 @@ class ProductDescription extends PureComponent {
                 : null}
             </div>
             <p className="price-label">PRICE:</p>
-            <p className="cost">{`${price?.currency.symbol}${price?.amount}`}</p>
+            <p className="cost">{`${
+              price?.currency.symbol
+            }${price?.amount.toFixed(2)}`}</p>
             <button className="add-to-cart" onClick={this.handleAddToCart}>
               ADD TO CART
             </button>

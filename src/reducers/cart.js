@@ -8,11 +8,13 @@ export function addCart(state = {}, action) {
       }
       let indx = state.cart.findIndex(
         (cart) =>
-          cart.id === action.cart.id &&
-          JSON.stringify(cart.attributes) ===
-            JSON.stringify(action.cart.attributes)
+          (cart.id === action.cart.id &&
+            JSON.stringify(cart.attributes) ===
+              JSON.stringify(action.cart.attributes)) ||
+          (cart.id === action.cart.id && !cart.attributes)
       );
       if (indx !== -1) {
+        console.log("Yesssss");
         return {
           cart: state.cart.map((item, i) => {
             if (indx === i) {
