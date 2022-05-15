@@ -6,6 +6,7 @@ import { GET_PRODUCT_BY_ID } from "../utils/graphqlApi";
 import { addToCart } from "../actions/cart";
 import DisplayValue from "./DisplayValue";
 import { client } from "../index";
+import "./ProductDescription.css";
 
 class ProductDescription extends PureComponent {
   constructor(props) {

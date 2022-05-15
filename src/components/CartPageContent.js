@@ -1,3 +1,4 @@
+import "./CartPageContent.css";
 import { PureComponent } from "react";
 import { connect } from "react-redux";
 import Slider from "./Slider";
@@ -8,9 +9,9 @@ class CartPageContent extends PureComponent {
     return (
       <div className="stock-content">
         <div>
-          <h2 style={{ margin: 0 }}>{cart.name}</h2>
-          <p style={{ fontSize: "22px", margin: 0 }}>{cart.brand}</p>
-          <p style={{ fontWeight: "bold" }}>
+          <h2 className="head">{cart.name}</h2>
+          <p className="brand">{cart.brand}</p>
+          <p className="price2">
             {
               cart.price.find(
                 (price) =>
@@ -27,57 +28,43 @@ class CartPageContent extends PureComponent {
             }
           </p>
           <div className="attr">
-            {cart.attributes && Object.keys(cart.attributes).map((attr, i) => (
-              <div key={i}>
-                <p
-                  style={{
-                    margin: "3px 0",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                  }}
-                >
-                  {attr.toUpperCase()}:
-                </p>
-                {Object.keys(cart.attributes[attr]).map((key, ind) => (
-                  <span
-                    key={ind}
-                    style={{
-                      display: "inline-block",
-                      border:
-                        cart.attributes[attr][key] && attr === "Color"
-                          ? "3px solid #5ece7b"
-                          : "",
-                      width: attr === "Color" ? "35px" : "",
-                      height: "35px",
-                      margin: "0 5px 15px 0",
-                      padding: "1px",
-                    }}
-                  >
-                    <button
+            {cart.attributes &&
+              Object.keys(cart.attributes).map((attr, i) => (
+                <div key={i}>
+                  <p className="attr-name">{attr.toUpperCase()}:</p>
+                  {Object.keys(cart.attributes[attr]).map((key, ind) => (
+                    <span
                       key={ind}
-                      className="measure"
-                      style={{
-                        background:
-                          attr === "Color"
-                            ? key
-                            : attr !== "Color" && cart.attributes[attr][key]
-                            ? "black"
-                            : "",
-                        color:
-                          attr !== "Color" && cart.attributes[attr][key]
-                            ? "#fff"
-                            : "",
-                        border: attr === "Color" ? "0.5px solid #8D8F9A" : "",
-                        width: attr === "Color" ? "35px" : "",
-                        height: attr === "Color" ? "35px" : "",
-                      }}
+                      className={`color-attr ${
+                        cart.attributes[attr][key] && attr === "Color"
+                          ? "style-attr"
+                          : ""
+                      } ${attr === "Color" ? "color-attr-style" : ""}`}
                     >
-                      {attr === "Color" ? "" : key}
-                    </button>
-                  </span>
-                ))}
-              </div>
-            ))}
+                      <button
+                        key={ind}
+                        className={`measure ${
+                          attr === "Color" ? "measure-color" : ""
+                        } ${
+                          attr !== "Color" && cart.attributes[attr][key]
+                            ? "select-attr"
+                            : ""
+                        }`}
+                        style={{
+                          background:
+                            attr === "Color"
+                              ? key
+                              : attr !== "Color" && cart.attributes[attr][key]
+                              ? "black"
+                              : "",
+                        }}
+                      >
+                        {attr === "Color" ? "" : key}
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              ))}
           </div>
         </div>
         <div className="rate2">
@@ -96,11 +83,6 @@ class CartPageContent extends PureComponent {
               －
             </button>
           </div>
-          {/* {cart.image.map((imgs) => (
-                <div className="mini-image2">
-                  <img src={imgs} alt={imgs} />
-                </div>
-              ))} */}
           <Slider slides={cart.image} />
         </div>
       </div>

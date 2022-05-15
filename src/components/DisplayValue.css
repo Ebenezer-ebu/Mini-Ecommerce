@@ -1,0 +1,18 @@
+.display-value {
+  margin-right: 10px;
+  padding: 2px;
+}
+
+.display-value-bord {
+  border: 3px solid #5ece7b;
+}
+
+.chosen {
+  position: relative;
+  cursor: pointer;
+}
+
+.sm-btn {
+  width: 35px;
+  height: 35px;
+}

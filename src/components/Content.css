@@ -1,0 +1,86 @@
+.modal-content {
+  display: flex;
+  height: 190px;
+  margin: 10px 0;
+  overflow: scroll;
+}
+
+.product-details {
+  flex: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.check-size {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-attr2 {
+  display: inline-block;
+  margin: 0 5px 0 0;
+  padding: 0;
+}
+
+.style-attr2 {
+  width: 17px;
+  border: 2px solid #5ece7b;
+}
+
+.size {
+  padding: 4px 8px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Source Sans Pro";
+}
+
+.color-button {
+  border: 0.5px solid #8d8f9a;
+  width: 16px;
+  height: 19px;
+}
+
+.big-btn {
+  color: #fff;
+}
+
+.attr-para {
+  margin: 5px 0 0 0;
+  font-weight: "bold";
+  font-size: "14px";
+}
+
+.rate {
+  flex: 10%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 7px;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.gauge {
+  padding: 3px 7px;
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Source Sans Pro";
+  cursor: pointer;
+}
+
+.mini-image {
+  flex: 40%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mini-image img {
+  width: 100%;
+  object-fit: contain;
+  height: 100%;
+}

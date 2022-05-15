@@ -1,0 +1,99 @@
+.stock-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+  padding: 20px 0;
+  height: 170px;
+  overflow: scroll;
+}
+
+.head,
+.brand {
+  margin: 0;
+}
+
+.brand {
+  font-size: 22px;
+}
+
+.price2 {
+  font-weight: bold;
+}
+
+.attr {
+  display: flex;
+  flex-direction: column;
+}
+
+.attr-name {
+  margin: 3px 0;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.color-attr {
+  display: inline-block;
+  height: 35px;
+  margin: 0 5px 15px 0;
+  padding: 1px;
+}
+
+.color-attr-style {
+  width: 35px;
+}
+
+.style-attr {
+  border: 3px solid #5ece7b;
+  width: 35px;
+}
+
+.measure {
+  border: 1px solid #1d1f22;
+  background: #fff;
+  font-family: "Source Sans Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  text-align: center;
+  width: 63px;
+  height: 45px;
+  letter-spacing: 0.05em;
+  color: #a6a6a6;
+  margin-right: 15px;
+}
+
+.measure-color {
+  border: 0.5px solid #8d8f9a;
+  width: 35px;
+  height: 35px;
+}
+
+.rate2 {
+  display: flex;
+  text-align: center;
+  width: 25%;
+  padding: 0;
+}
+
+.rating {
+  padding: 0 25px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.gauge2 {
+  border: 1px solid #1d1f22;
+  box-sizing: border-box;
+  background: #fff;
+  font-family: "Source Sans Pro";
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+}
+
+.select-attr {
+    color: #fff;
+}

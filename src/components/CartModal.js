@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import OutsideClickHandler from "react-outside-click-handler";
 import Content from "./Content";
 import { decrementItems, incrementItems } from "../actions/cart";
+import "./CartModal.css"
 
 class CartModal extends PureComponent {
   incrementNum = (id, index) => {

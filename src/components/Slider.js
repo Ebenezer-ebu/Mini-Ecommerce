@@ -1,5 +1,6 @@
 import { PureComponent } from "react";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import "./Slider.css"
 
 class Slider extends PureComponent {
   state = {
@@ -25,13 +26,7 @@ class Slider extends PureComponent {
     const { current } = this.state;
     return (
       <div
-        style={{
-          position: "relative",
-          display: "flex",
-          width: "100%",
-          //   justifyContent: "center",
-          //   alignItems: "center",
-        }}
+        className="slider"
       >
         <div className="img-slider">
           {slides.map((slide, index) => {

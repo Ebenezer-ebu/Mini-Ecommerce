@@ -11,6 +11,7 @@ import curve from "../assets/bag-arror.png";
 import arrow from "../assets/arrow.png";
 import DropDown from "./DropDown";
 import CartModal from "./CartModal";
+import "./Header.css";
 
 class Header extends PureComponent {
   state = {

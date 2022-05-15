@@ -1,4 +1,5 @@
 import { PureComponent } from "react";
+import "./DisplayValue.css";
 
 class DisplayValue extends PureComponent {
   constructor(props) {
@@ -43,25 +44,25 @@ class DisplayValue extends PureComponent {
           {details.items.map((item) => (
             <div
               key={item.value}
-              style={{
-                marginRight: "10px",
-                padding: "2px",
-                border:
-                  tick[details.id] &&
-                  tick[details.id][item.value] &&
-                  displayType === "swatch"
-                    ? "3px solid #5ece7b"
-                    : "",
-              }}
+              className={`display-value ${
+                tick[details.id] &&
+                tick[details.id][item.value] &&
+                displayType === "swatch"
+                  ? "display-value-bord"
+                  : ""
+              }`}
             >
               <button
+                className="chosen"
                 style={{
-                  background: displayType === "swatch" ? item.value : tick[details.id] &&
-                    tick[details.id][item.value] &&
-                    displayType !== "swatch"
+                  background:
+                    displayType === "swatch"
+                      ? item.value
+                      : tick[details.id] &&
+                        tick[details.id][item.value] &&
+                        displayType !== "swatch"
                       ? "black"
                       : "",
-                  border: "0.5px solid #8D8F9A",
                   width: displayType === "swatch" ? "35px" : "",
                   height: displayType === "swatch" ? "35px" : "",
                   color:
@@ -70,8 +71,8 @@ class DisplayValue extends PureComponent {
                     displayType !== "swatch"
                       ? "#fff"
                       : "",
+                  border: "0.5px solid #8d8f9a",
                 }}
-                className="chosen"
                 onClick={() =>
                   handleSelectedAtt(
                     item.value,

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { client } from "../index";
 import ProductCard from "./ProductCard";
 import { GET_PRODUCTS_BY_CATEGORY } from "../utils/graphqlApi";
+import "./Category.css"
 
 class Category extends PureComponent {
   constructor(props) {

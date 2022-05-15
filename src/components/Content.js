@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from "react-redux";
+import "./Content.css";
 
 class Content extends Component {
   render() {
@@ -8,8 +9,8 @@ class Content extends Component {
       <div className="modal-content">
         <div className="product-details">
           <div>
-            <p className="">{cart.name}</p>
-            <p className="">{cart.brand}</p>
+            <p>{cart.name}</p>
+            <p>{cart.brand}</p>
             <p>
               <b>
                 {
@@ -30,57 +31,46 @@ class Content extends Component {
             </p>
           </div>
           <div className="check-size">
-            {cart.attributes && Object.keys(cart.attributes).map((attr, i) => (
-              <div key={i}>
-                <p
-                  style={{
-                    margin: "5px 0 0 0",
-                    fontWeight: "bold",
-                    fontSize: "14px",
-                  }}
-                >
-                  {attr}
-                </p>
-                {Object.keys(cart.attributes[attr]).map((key, ind) => (
-                  <span
-                    key={ind}
-                    style={{
-                      display: "inline-flex",
-                      border:
-                        cart.attributes[attr][key] && attr === "Color"
-                          ? "2px solid #5ece7b"
-                          : "",
-                      width:
-                        cart.attributes[attr][key] && attr === "Color"
-                          ? "17px"
-                          : "",
-                      margin: "0 5px 0 0",
-                    }}
+            {cart.attributes &&
+              Object.keys(cart.attributes).map((attr, i) => (
+                <div key={i}>
+                  <p
+                    className="attr-para"
                   >
-                    <button
-                      className="size"
-                      style={{
-                        background:
-                          attr === "Color"
-                            ? key
-                            : attr !== "Color" && cart.attributes[attr][key]
-                            ? "black"
-                            : "",
-                        color:
-                          attr !== "Color" && cart.attributes[attr][key]
-                            ? "#fff"
-                            : "",
-                        border: attr === "Color" ? "0.5px solid #8D8F9A" : "",
-                        width: attr === "Color" ? "16px" : "",
-                        height: attr === "Color" ? "16px" : "",
-                      }}
+                    {attr}
+                  </p>
+                  {Object.keys(cart.attributes[attr]).map((key, ind) => (
+                    <span
+                      key={ind}
+                      className={`color-attr2 ${
+                        cart.attributes[attr][key] && attr === "Color"
+                          ? "style-attr2"
+                          : ""
+                      }`}
                     >
-                      {attr === "Color" ? "" : key}
-                    </button>
-                  </span>
-                ))}
-              </div>
-            ))}
+                      <button
+                        className={`size ${
+                          attr === "Color" ? "color-button" : ""
+                        } ${
+                          attr !== "Color" && cart.attributes[attr][key]
+                            ? "big-btn"
+                            : ""
+                        }`}
+                        style={{
+                          background:
+                            attr === "Color"
+                              ? key
+                              : attr !== "Color" && cart.attributes[attr][key]
+                              ? "black"
+                              : "",
+                        }}
+                      >
+                        {attr === "Color" ? "" : key}
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              ))}
           </div>
         </div>
         <div className="rate">
@@ -90,7 +80,7 @@ class Content extends Component {
           >
             ＋
           </button>
-          <p className="count">{cart.no_of_items}</p>
+          <p>{cart.no_of_items}</p>
           <button
             className="gauge"
             onClick={() => decrementNum(cart.id, index)}
@@ -99,7 +89,7 @@ class Content extends Component {
           </button>
         </div>
         <div className="mini-image">
-          <img src={cart.image[0]} alt={cart.image[0]} className="cart-image" />
+          <img src={cart.image[0]} alt={cart.image[0]} />
         </div>
       </div>
     );

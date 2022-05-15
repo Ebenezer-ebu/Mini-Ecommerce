@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import { connect } from "react-redux";
 import { decrementItems, incrementItems } from "../actions/cart";
 import CartPageContent from "./CartPageContent";
+import "./CartPage.css"
 
 class CartPage extends PureComponent {
   incrementNum = (id, index) => {
@@ -49,18 +50,20 @@ class CartPage extends PureComponent {
                   <div>
                     <p>
                       Tax:{" "}
-                      <span style={{ fontWeight: "bold" }}>
+                      <span className="summary">
                         {state.currency.defaultCurrency?.symbol}15.00
                       </span>
                     </p>
                     <p>
                       Qty:{" "}
-                      <span style={{ fontWeight: "bold" }}>{itemsInBag}</span>
+                      <span className="summary">
+                        {itemsInBag}
+                      </span>
                     </p>
                   </div>
                   <p>
                     Total:{" "}
-                    <span style={{ fontWeight: "bold" }}>
+                    <span className="summary">
                       {" "}
                       {state.currency.defaultCurrency?.symbol}
                       {total.toFixed(2)}

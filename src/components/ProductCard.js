@@ -5,6 +5,7 @@ import { BsCart2 } from "react-icons/bs";
 import { client } from "../index";
 import { GET_PRODUCT_BY_ID } from "../utils/graphqlApi";
 import { addToCart } from "../actions/cart";
+import "./ProductCard.css";
 
 class ProductCard extends PureComponent {
   handleAddToCart = (e, data) => {
@@ -33,6 +34,7 @@ class ProductCard extends PureComponent {
             price: product.prices,
             image: product.gallery,
             no_of_items: 1,
+            attributes: {},
           };
           dispatch(addToCart(cart));
         } else {

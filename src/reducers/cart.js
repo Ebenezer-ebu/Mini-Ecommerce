@@ -14,7 +14,6 @@ export function addCart(state = {}, action) {
           (cart.id === action.cart.id && !cart.attributes)
       );
       if (indx !== -1) {
-        console.log("Yesssss");
         return {
           cart: state.cart.map((item, i) => {
             if (indx === i) {

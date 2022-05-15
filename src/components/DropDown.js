@@ -5,6 +5,7 @@ import { client } from "../index";
 import { GET_CURRENCIES } from "../utils/graphqlApi";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 import { setCurrency, selectedCurrency } from "../actions/currency";
+import "./DropDown.css";
 
 class DropDown extends PureComponent {
   state = {
