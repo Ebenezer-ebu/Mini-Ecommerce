@@ -2,7 +2,8 @@
   width: 1100px;
   height: 650px;
   display: flex;
-  padding-top: 20px;
+  margin-top: 20px;
+  height: 70vh;
 }
 
 .fixed {
