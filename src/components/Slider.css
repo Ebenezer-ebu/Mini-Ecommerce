@@ -17,6 +17,9 @@
 .indicator {
   position: absolute;
   bottom: 0;
-  width: 100%;
-  right: 0;
+  /* width: 100%; */
+  right: 25%;
+}
+.indicator > img {
+  margin-left: 8px;
 }

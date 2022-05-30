@@ -1,6 +1,11 @@
 .grid {
   display: grid;
-  grid-template-columns: 400px 400px 400px;
-  grid-column-gap: 30px;
+  grid-template-columns: auto auto auto;
+  justify-content: space-between;
   grid-row-gap: 30px;
+  width: 100%;
+}
+
+.product-content {
+  width: 100%;
 }

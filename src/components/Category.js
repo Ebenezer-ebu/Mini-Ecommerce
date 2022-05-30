@@ -57,7 +57,7 @@ class Category extends PureComponent {
         {loading ? (
           <h1>Loading...</h1>
         ) : (
-          <div>
+          <div className="product-content">
             <h1>
               {`${category2.defaultCategory
                 ?.split("")[0]

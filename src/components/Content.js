@@ -34,41 +34,39 @@ class Content extends Component {
             {cart.attributes &&
               Object.keys(cart.attributes).map((attr, i) => (
                 <div key={i}>
-                  <p
-                    className="attr-para"
-                  >
-                    {attr}
-                  </p>
-                  {Object.keys(cart.attributes[attr]).map((key, ind) => (
-                    <span
-                      key={ind}
-                      className={`color-attr2 ${
-                        cart.attributes[attr][key] && attr === "Color"
-                          ? "style-attr2"
-                          : ""
-                      }`}
-                    >
-                      <button
-                        className={`size ${
-                          attr === "Color" ? "color-button" : ""
-                        } ${
-                          attr !== "Color" && cart.attributes[attr][key]
-                            ? "big-btn"
+                  <p className="attr-para">{attr}:</p>
+                  <div className="span-flex">
+                    {Object.keys(cart.attributes[attr]).map((key, ind) => (
+                      <span
+                        key={ind}
+                        className={`color-attr2 ${
+                          cart.attributes[attr][key] && attr === "Color"
+                            ? "style-attr2"
                             : ""
                         }`}
-                        style={{
-                          background:
-                            attr === "Color"
-                              ? key
-                              : attr !== "Color" && cart.attributes[attr][key]
-                              ? "black"
-                              : "",
-                        }}
                       >
-                        {attr === "Color" ? "" : key}
-                      </button>
-                    </span>
-                  ))}
+                        <button
+                          className={`size ${
+                            attr === "Color" ? "color-button" : ""
+                          } ${
+                            attr !== "Color" && cart.attributes[attr][key]
+                              ? "big-btn"
+                              : ""
+                          }`}
+                          style={{
+                            background:
+                              attr === "Color"
+                                ? key
+                                : attr !== "Color" && cart.attributes[attr][key]
+                                ? "black"
+                                : "",
+                          }}
+                        >
+                          {attr === "Color" ? "" : key}
+                        </button>
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
           </div>

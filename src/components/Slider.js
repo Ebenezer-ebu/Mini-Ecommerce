@@ -1,6 +1,7 @@
 import { PureComponent } from "react";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import "./Slider.css"
+import left from "../assets/left.png";
+import right from "../assets/right.png";
+import "./Slider.css";
 
 class Slider extends PureComponent {
   state = {
@@ -25,26 +26,23 @@ class Slider extends PureComponent {
     const { slides } = this.props;
     const { current } = this.state;
     return (
-      <div
-        className="slider"
-      >
+      <div className="slider">
         <div className="img-slider">
           {slides.map((slide, index) => {
             return (
               <div key={index} className="mini-image2">
-                {index === current && (
-                  <img
-                    src={slide}
-                    alt={slide}
-                  />
-                )}
+                {index === current && <img src={slide} alt={slide} />}
               </div>
             );
           })}
         </div>
         <div className="indicator">
-          <FaChevronLeft className="left-arrow" onClick={this.prevSlide} />
-          <FaChevronRight className="right-arrow" onClick={this.nextSlide} />
+          {slides.length > 1 ? (
+            <>
+              <img src={left} alt={left} onClick={this.prevSlide} />
+              <img src={right} alt={right} onClick={this.nextSlide} />
+            </>
+          ) : null}
         </div>
       </div>
     );
